@@ -12,6 +12,8 @@ shaolin-kongfu
 https://kandian.wkandian.com/v17/NewTask/getTaskList.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zq_today_score.js
 [MITM]
 hostname = kandian.wkandian.com
+
+cron "45 23 * * *" zq_today_score.js, tag:中青看点收益统计
 */
 
 const $ = new Env("中青看点收益统计");
