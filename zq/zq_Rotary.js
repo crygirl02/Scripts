@@ -9,7 +9,7 @@ shaolin-kongfu
 
 转盘抽奖，使用zq_cookie
 
-
+cron "30 22 * * *" zq_Rotary.js, tag:中青看点大转盘抽奖
  */
 
 const $ = new Env("中青看点大转盘抽奖");
