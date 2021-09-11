@@ -1,37 +1,30 @@
 /*
-微信公众号 柠檬玩机交流
+微信公众号：柠檬玩机交流
 柠檬富豪小镇
 下载地址：https://hyskgame.com/apps/fuhaoxiaozhen/wxshare/index.html?createAt=1619750062&senderUserId=152420&senderInviteCode=HG7X&entryPointData=eyJzZW5kZXJVc2VySWQiOiIxNTI0MjAifQ
 
+TG电报群: https://t.me/ningmeng666
+微信公众号：柠檬玩机交流
+圈X
 使用说明
 去除生产 只保留每天签到和抽奖
 如果遇到提现出错正常
 等跑完广告任务可以提现了
 脚本自动提现 此时可以关了定时
-天天稳定3毛钱
--------------圈X运行-------------
 [rewrite_local]
 #柠檬富豪小镇
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js
 [MITM]
 hostname = sunnytown.hyskgame.com
 #loon
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js, requires-body=true, timeout=10, tag=柠檬富豪小镇
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, requires-body=true, timeout=10, tag=柠檬富豪小镇
 #surge
-柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js.js,script-update-interval=0
-
--------------青龙或者其他容器运行-------------
--------------青龙拉取-------------
-ql raw https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js
-放配置里 定时如下面
-export fhxzurl='https://sunnytown.hyskgame.com/api/messages?accessToken=你抓包的TOKEN&msgtype=system_getGpvGameOptions'
-手动抓包替换上面2个 放在配置里面 多账号用@隔开
--------------V2P运行-------------
-直接订阅BOXJX 
-http://nm66.top/nm.boxjs.json
-下载脚本 设置变量fhxzurl多账号@隔开或者fhxzurl2...
-定时如下面
+柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js,script-update-interval=0
 */
+
+// [task_local]
+//#柠檬富豪小镇
+// */10 * * * * https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, tag=柠檬富豪小镇, enabled=true
 
 // [task_local]
 //#柠檬富豪小镇
