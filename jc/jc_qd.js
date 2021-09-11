@@ -1,3 +1,7 @@
+/*
+cron "15 0 * * *" jc_qd.js, tag:晶彩看点签到
+*/
+
 const $ = new Env("晶彩看点签到");
 const notify = $.isNode() ? require('./sendNotify') : '';
 message = ""
