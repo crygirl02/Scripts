@@ -17,7 +17,7 @@ https://ant.xunsl.com/v5/CommonReward/toGetReward.json 重写目标 https://raw.
 [MITM]
 hostname = ant.xunsl.com
 
-cron "33 0-23/4 * * *" box.js, tag:晶彩看点任务宝箱领取
+cron "15 22 * * *" jc_box.js, tag:晶彩看点任务宝箱领取
 */
 
 const $ = new Env('晶彩看点任务宝箱领取');
