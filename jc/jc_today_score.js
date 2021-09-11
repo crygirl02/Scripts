@@ -12,6 +12,8 @@ shaolin-kongfu
 https://ant.xunsl.com/v17/NewTask/getTaskList.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jc_today_score.js
 [MITM]
 hostname = ant.xunsl.com
+
+cron "45 23 * * *" jc_today_score.js, tag:晶彩看点每日收益查询
 */
 
 const $ = new Env("晶彩看点收益统计");
