@@ -12,6 +12,8 @@ shaolin-kongfu
 https://kandian.wkandian.com/v5/Sousuo/playStart.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqssz.js
 [MITM]
 hostname = kandian.wkandian.com
+
+cron "35 5 * * *" zq_ssz.js, tag:中青看点搜索赚
 */
 const $ = new Env("中青看点搜索赚");
 const notify = $.isNode() ? require('./sendNotify') : '';
