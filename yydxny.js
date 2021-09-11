@@ -27,12 +27,11 @@ export yyxnyhd='{"bs":"CDMA","osVersion":"iOS 14.30","pkgId":"313","Host":"bp-ap
 http://nm66.top/nm.boxjs.json
 下载脚本 设置变量yyxnyhd多账号@隔开或者yyxnyhd2...
 定时如下面
-cron "*/10 * * * *" yydxny.js, tag:爷爷的小农院
 */
-
+// cron "*/10 * * * *" yydxny.js, tag:爷爷的小农院
 // [task_local]
 //#柠檬爷爷的小农院
-// */10 * * * * http://nm66.top/yydxny.js, tag=柠檬爷爷的小农院, enabled=true
+// */10 * * * * yydxny.js, tag=柠檬爷爷的小农院, enabled=true
 const $ = new Env('柠檬爷爷的小农院');
 let status;
 status = (status = ($.getval("yyxnystatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
