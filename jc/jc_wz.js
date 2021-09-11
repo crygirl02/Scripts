@@ -1,5 +1,5 @@
 /*
- ron "30 8 * * *	" jc_wz.js, tag:晶彩看点阅读文章
+ cron "30 8 * * *	" jc_wz.js, tag:晶彩看点阅读文章
 */
 
 const $ = new Env("晶彩看点阅读文章");
