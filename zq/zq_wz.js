@@ -18,6 +18,7 @@ https://kandian.wkandian.com/v5/article/detail.json 重写目标 https://raw.git
 时长
 https://kandian.wkandian.com/v5/user/stay.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqwz.js
 
+cron "30 8 * * *" zq_wz.js, tag:中青看点阅读文章
 */
 
 const $ = new Env("中青看点阅读文章");
