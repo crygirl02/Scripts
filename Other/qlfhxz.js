@@ -12,17 +12,17 @@
 -------------圈X运行-------------
 [rewrite_local]
 #柠檬富豪小镇
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body http://nm66.top/qlfhxz.js
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js
 [MITM]
 hostname = sunnytown.hyskgame.com
 #loon
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body http://nm66.top/qlfhxz.js, requires-body=true, timeout=10, tag=柠檬富豪小镇
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js, requires-body=true, timeout=10, tag=柠檬富豪小镇
 #surge
-柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=http://nm66.top/qlfhxz.js,script-update-interval=0
+柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js.js,script-update-interval=0
 
 -------------青龙或者其他容器运行-------------
 -------------青龙拉取-------------
-ql raw http://nm66.top/qlfhxz.js
+ql raw https://github.com/crygirl02/Scripts/blob/main/Other/qlfhxz.js
 放配置里 定时如下面
 export fhxzurl='https://sunnytown.hyskgame.com/api/messages?accessToken=你抓包的TOKEN&msgtype=system_getGpvGameOptions'
 手动抓包替换上面2个 放在配置里面 多账号用@隔开
@@ -35,7 +35,7 @@ http://nm66.top/nm.boxjs.json
 
 // [task_local]
 //#柠檬富豪小镇
-// */10 * * * * http://nm66.top/qlfhxz.js, tag=柠檬富豪小镇, enabled=true
+// */10 * * * * qlfhxz.js, tag=柠檬富豪小镇, enabled=true
 const $ = new Env('柠檬富豪小镇');
 let status;
 status = (status = ($.getval("tfbstatus") || "1") ) > 1 ? `${status}` : ""; // 账号扩展字符
