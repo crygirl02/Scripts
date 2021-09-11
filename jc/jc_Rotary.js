@@ -5,6 +5,7 @@ shaolin-kongfu
 赞赏:邀请码54870223
 万分感谢！！
 
+cron "30 22 * * *" jc_Rotary.js, tag:晶彩看点大转盘抽奖
 
 
 转盘抽奖，使用jc_cookie
