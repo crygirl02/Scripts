@@ -1,7 +1,7 @@
 /*
 shaolin-kongfu
 
-软件名称：中青看点
+软件名称：晶彩看点
 赞赏:邀请码57984759
 
 万分感谢！！
@@ -12,10 +12,12 @@ shaolin-kongfu
 
 [rewrite_local]
 
-#中青看点宝箱
-https://kandian.wkandian.com/v5/CommonReward/toGetReward.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqbox.js
+#晶彩看点宝箱
+https://ant.xunsl.com/v5/CommonReward/toGetReward.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jcbox.js
 [MITM]
-hostname = kandian.wkandian.com
+hostname = ant.xunsl.com
+
+cron "33 0-23/4 * * *" box.js, tag:晶彩看点任务宝箱领取
 */
 
 const $ = new Env('晶彩看点任务宝箱领取');
