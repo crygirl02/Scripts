@@ -12,6 +12,8 @@ shaolin-kongfu
 https://ant.xunsl.com/v5/nameless/adlickstart.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/jckkz.js
 [MITM]
 hostname = ant.xunsl.com
+
+cron "45 13 * * *" jc_kkz.js, tag:晶彩看点看看赚
 */
 const $ = new Env("晶彩看点看看赚");
 const notify = $.isNode() ? require('./sendNotify') : '';
