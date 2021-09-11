@@ -16,6 +16,7 @@ shaolin-kongfu
 https://kandian.wkandian.com/v5/CommonReward/toGetReward.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqbox.js
 [MITM]
 hostname = kandian.wkandian.com
+cron "15 22 * * *" zq_box.js, tag:中青看点任务宝箱领取
 */
 
 const $ = new Env('中青看点任务宝箱领取');
