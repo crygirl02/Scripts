@@ -7,7 +7,7 @@ shaolin-kongfu
 万分感谢！！
 
 #火爆转发
-
+cron "15 6,12,18 * * *" zq_share.js, tag:中青看点火爆转发
 */
 
 const $ = new Env("中青看点火爆转发");
