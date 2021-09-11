@@ -12,6 +12,8 @@ shaolin-kongfu
 https://kandian.wkandian.com/v5/nameless/adlickstart.json 重写目标 https://raw.githubusercontent.com/shaolin-kongfu/js_scripts/main/zq/zqkkz.js
 [MITM]
 hostname = kandian.wkandian.com
+
+cron "45 13 * * *" zq_kkz.js, tag:中青看点看看赚
 */
 const $ = new Env("中青看点看看赚");
 const notify = $.isNode() ? require('./sendNotify') : '';
