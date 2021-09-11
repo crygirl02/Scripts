@@ -1,3 +1,6 @@
+/*
+cron "30 5,9 * * *" zq_wakeup.js, tag:中青看点打卡赚钱
+*/
 const $ = new Env("中青看点打卡赚钱");
 const notify = $.isNode() ? require('./sendNotify') : '';
 message = ""
