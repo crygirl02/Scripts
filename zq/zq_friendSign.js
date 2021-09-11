@@ -11,6 +11,7 @@ shaolin-kongfu
 
 没有好友的可以加群，让群友扫码：https://t.me/ShaolinTemple2
 
+cron "15 7 * * *" zq_friendSign.js, tag:中青看点好友签到红包
 
  */
 
