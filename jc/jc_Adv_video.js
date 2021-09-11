@@ -1,4 +1,6 @@
-
+/*
+cron "20 21 * * *" jc_Adv_video.js, tag:晶彩看点福利视频
+*/
 
 const $ = new Env("晶彩看点福利视频");
 const notify = $.isNode() ? require('./sendNotify') : '';
