@@ -2,39 +2,35 @@
 /*
 微信公众号柠檬玩机交流
 下载地址：
-http://fhnc-ii-share.xlzxtj.cn/fhnc_ii/share/html/download_share.html?invitation=14659726
+http://qmlzc.agileloan.cn/lwzc/share/html/download_share.html?invitation=7094490
 Tg群 t.me/ningmengwj
-注意 需要屏蔽越狱 不然黑号/黑号了不要换小号 不然跟着黑
-
-获取数据方法：
-随便种个什么然后点钻石加速收取了
-
+使用方法
+获取数据打开APP即可获取
 由于我已经黑了 无法看广告领取那些
-所以只写了每天领红包和刷钻石
-
-如果提示没有了手动种植一下 如果还是没有 那么今天已经上限了
+所以只写了每天领过关红包和存钱罐
+每天即可获取3毛钱也可以存着领5毛往上的
+每天运行满100次即可关了就行了
 
 【黑号专用】别管有没有广告 挂着刷着就行了
-
 [rewrite_local]
-https://fhnc-ii-game.lw0591.com/ws\Sparam=\S+UserID\S+TokenID\S+MsgID\S+Type\S+Diamonds\S+ url script-request-header http://nm66.top/qmdff.js
+https://qmlzc-api.lw0591.com/v1/userinfo\S+ url script-request-header http://nm66.top/qmlzc.js
 
-hostname = *.lw0591.com
+hostname = qmlzc-api.lw0591.com
 */
 
 // [task_local]
-// */1 * * * * http://nm66.top/qmdff.js, tag=柠檬全民大丰收, img-url=http://nm66.top/1.jpg, enabled=true
+// */1 * * * * http://nm66.top/qmlzc.js, tag=柠檬全民来找茬, img-url=circles.hexagongrid.fill.system, enabled=true
 
-const qmdff = '全民大丰收'
-const $ = Env('全民大丰收')
+const xnm = '全民来找茬'
+const $ = Env('全民来找茬')
 
 
 let status;
-status = (status = ($.getval("qmdffstatus") || "1") ) > 1 ? `${status}` : ""; 
-qmdffheaderArr = []
-qmdffurlArr = []
-let qmdffheader = $.getdata('qmdffheader')
-let qmdffurl = $.getdata('qmdffurl')
+status = (status = ($.getval("xnmstatus") || "1") ) > 1 ? `${status}` : ""; 
+xnmheaderArr = []
+xnmurlArr = []
+let xnmheader = $.getdata('xnmheader')
+let xnmurl = $.getdata('xnmurl')
 const logs =0;
 
 
@@ -43,32 +39,30 @@ if (isGetCookie) {
    GetCookie();
    $.done()
 } 
-qmdffurlArr.push($.getdata('qmdffurl'))
-qmdffheaderArr.push($.getdata('qmdffheader'))
-    let qmdffcount = ($.getval('qmdffcount') || '1');
-  for (let i = 2; i <= qmdffcount; i++) {
-    qmdffheaderArr.push($.getdata(`qmdffheader${i}`))
-qmdffurlArr.push($.getdata(`qmdffurl${i}`))
+//xnmurlArr.push($.getdata('xnmurl'))
+xnmheaderArr.push($.getdata('xnmheader'))
+    let xnmcount = ($.getval('xnmcount') || '1');
+  for (let i = 2; i <= xnmcount; i++) {
+    xnmheaderArr.push($.getdata(`xnmheader${i}`))
+xnmurlArr.push($.getdata(`xnmurl${i}`))
   }
 !(async () => {
-if (!qmdffheaderArr[0]) {
-    $.msg($.name, '【提示】请先获取数据 随便种个什么然后点钻石加速收取了')
+if (!xnmheaderArr[0]) {
+    $.msg($.name, '【提示】请先获取数据')
     return;
   }
-   console.log(`------------- 共${qmdffheaderArr.length}账号----------------\n`)
-  for (let i = 0; i < qmdffheaderArr.length; i++) {
-    if (qmdffheaderArr[i]) {
+   console.log(`------------- 共${xnmheaderArr.length}账号----------------\n`)
+  for (let i = 0; i < xnmheaderArr.length; i++) {
+    if (xnmheaderArr[i]) {
       message = ''
-      qmdffheader = qmdffheaderArr[i];
-      qmdffurl = qmdffurlArr[i];
+      xnmheader = xnmheaderArr[i];
+      //xnmurl = xnmurlArr[i];
       $.index = i + 1;
-      console.log(`\n开始【全民大丰收${$.index}】`)
+      console.log(`\n开始【全民来找茬${$.index}】`)
      
-       await hb1()
-       await hb2()
-       await hb3()
-       await zs()
-       
+       await cqg()
+       await gghb()
+       await lqcqg()
   }
  }
 })()
@@ -77,126 +71,94 @@ if (!qmdffheaderArr[0]) {
     
     
 function GetCookie() {
-if($request&&$request.url.indexOf("UserID")>=0) {
-   const qmdffurl = JSON.stringify($request.url)
-   const qmdffheader = JSON.stringify($request.headers)
-if(qmdffurl)    $.setdata(qmdffurl,`qmdffurl${status}`)
-    if(qmdffheader)    $.setdata(qmdffheader,`qmdffheader${status}`)
-    $.log(`[${qmdff}] 获取请求: 成功,qmdffheader: ${qmdffurl}`)
-$.log(`[${qmdff}] 获取: 成功: ${qmdffurl}`)
-    $.msg(`全民大丰收${status}: 成功`, ``)
+if($request&&$request.url.indexOf("userinfo")>=0) {
+   const xnmurl = JSON.stringify($request.url)
+   const xnmheader = JSON.stringify($request.headers)
+if(xnmurl)    $.setdata(xnmurl,`xnmurl${status}`)
+    if(xnmheader)    $.setdata(xnmheader,`xnmheader${status}`)
+    $.log(`[${xnm}] 获取请求: 成功,xnmheader: ${xnmurl}`)
+$.log(`[${xnm}] 获取: 成功: ${xnmurl}`)
+    $.msg(`全民来找茬${status}: 成功🎉`, ``)
 }
 }
 
 
 
-//红包1
-async function hb1(){
- return new Promise((resolve) => {
 
-    user = qmdffurl.match(/serID%22%3A(\d+)%2C%22T/)[1]
-    token = qmdffurl.match(/TokenID%22%3A(\d+)%/)[1]
+async function cqg(){
+ return new Promise((resolve) => {
+    fj = xnmurl.match(/api_token=(\S+)"/)[1]
 
     let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A6%7D`,
+   		url: `https://qmlzc-api.lw0591.com/v1/fast_award?api_token=`+fj,
+        headers: JSON.parse(xnmheader),
         
-        
-    }
+   	}
    $.get(plant6_url,async(error, response, data) =>{
     try{
         const result = JSON.parse(data)
         if(logs)$.log(data)
-        if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
-    
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
-   })
-  }
-async function hb2(){
- return new Promise((resolve) => {
-
-   
-
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A5%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-   if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
-    
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
-   })
-  }
-  async function hb3(){
- return new Promise((resolve) => {
-
-   
-
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A7%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-  if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
-    
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
-   })
-  }
-  //钻石
-    async function zs(){
- return new Promise((resolve) => {
-
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2003%2C%22Type%22%3A6%2C%22Diamonds%22%3A100%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-        if(result.ErrCode == 2103)
-          $.log("小伙子 今天钻石刷完了")
+        if(result.message == '调用成功')
+          $.log("存钱罐次数"+result.data.remain_cnt+"\n金额"+result.data.award+"\n当前红包🧧"+result.data.piggy_bank_balance)
          
-        if(result.MsgID == 2003)
-          $.log("小伙子 刷100钻石成功")
+        if(result.message == '已达最大')
+          $.log("小伙子 今天存钱罐100次刷完了"+result.message)
+          
+        }catch(e) {
+          $.logErr(e, response);
+      } finally {
+        resolve();
+      } 
+    })
+   })
+  }
+    async function gghb(){
+ return new Promise((resolve) => {
+    //fj = xnmurl.match(/api_token=(\S+)"/)[1]
+
+    let plant6_url = {
+   		url: `https://qmlzc-api.lw0591.com/v1/normal_award?api_token=`+fj,
+        headers: JSON.parse(xnmheader),
+        
+   	}
+   $.get(plant6_url,async(error, response, data) =>{
+    try{
+        const result = JSON.parse(data)
+        if(logs)$.log(data)
+        if(result.message == '调用成功')
+          $.log("过关红包次数"+result.data.remain_cnt+"\n存金额"+result.data.award+"\n当前红包🧧"+result.data.red_balance)
+         
+        if(result.message == '已达到最大次数')
+          $.log("小伙子 今天过关红包100次刷完了"+result.message)
+          
+        }catch(e) {
+          $.logErr(e, response);
+      } finally {
+        resolve();
+      } 
+    })
+   })
+  }
+
+
+    async function lqcqg(){
+ return new Promise((resolve) => {
+    //fj = xnmurl.match(/api_token=(\S+)"/)[1]
+
+    let plant6_url = {
+   		url: `https://qmlzc-api.lw0591.com/v1/piggy/get_daily_balance?api_token=`+fj,
+        headers: JSON.parse(xnmheader),
+        
+   	}
+   $.get(plant6_url,async(error, response, data) =>{
+    try{
+        const result = JSON.parse(data)
+        if(logs)$.log(data)
+        if(result.message == '调用成功')
+          $.log(data)
+         
+        if(result.message == '明日再来')
+          $.log("小伙子 今天存钱罐已经给你领了"+result.message)
           
         }catch(e) {
           $.logErr(e, response);
