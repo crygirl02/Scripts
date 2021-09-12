@@ -22,7 +22,7 @@ https://bp-api.coohua.com/shua-happyharvest/main/page url script-request-header 
 
 
 const kxdfs = '开心大丰收'
-const $ = new Env('开心大丰收')
+const $ = Env('开心大丰收')
 const notify = $.isNode() ?require('./sendNotify') : '';
 
 let status;
