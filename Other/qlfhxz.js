@@ -112,9 +112,6 @@ var timestamp = Math.round(new Date().getTime()/1000).toString();
           await krqq(); //热气球/汽车
           await $.wait(1000);
           await txlb(); //提现列表
-          await $.wait(5000)
-          await scd1();//生产第一块地
-          
         }
       }
     } else {
