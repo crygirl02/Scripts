@@ -22,7 +22,7 @@ hostname = *.yundongfu.mobi
 // 0 0 * * * http://nm66.top/ydf.js, tag=柠檬运动福极速版, img-url=circles.hexagongrid.fill.system, enabled=true
 
 const ydf = '运动福极速版'
-const $ = new Env('运动福极速版')
+const $ = Env('运动福极速版')
 
 
 let status;
