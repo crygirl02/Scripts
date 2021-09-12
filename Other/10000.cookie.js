@@ -1,3 +1,45 @@
+/*
+/***********************
+Surge 4.2.0+ 脚本配置:
+************************
+
+[Script]
+电信营业厅签到 = type=cron,cronexp=0 9 * * *,script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+
+电信营业厅获取Cookie = type=http-request,pattern=^https:\/\/wapside.189.cn:9001\/api\/home\/sign,script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+[MITM] 
+hostname= e.189.cn,wapside.189.cn
+
+************************
+QuantumultX 远程脚本配置:
+************************
+
+[task_local]
+# 电信营业厅签到
+0 9 * * * https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+
+[rewrite_local]
+# 获取Cookie
+^https:\/\/wapside.189.cn:9001\/api\/home\/sign url script-request-body https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+
+[mitm] 
+hostname= e.189.cn,wapside.189.cn
+
+************************
+Loon 2.1.0+ 脚本配置:
+************************
+
+[Script]
+# 电信营业厅签到
+cron "0 9 * * *" script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+
+# 获取Cookie
+http-request ^https:\/\/wapside.189.cn:9001\/api\/home\/sign script-path=https://raw.githubusercontent.com/chavyleung/scripts/master/10000/10000.cookie.js
+
+[Mitm] 
+hostname= e.189.cn,wapside.189.cn
+*/
+
 const cookieName = '电信营业厅'
 const KEY_signheader = 'chavy_signheader_10000'
 const KEY_signbody = 'chavy_signbody_10000'
