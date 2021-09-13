@@ -177,7 +177,7 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
           await $.wait(Math.floor(Math.random() * 100) + 3000);
           await plantd9();
           await $.wait(Math.floor(Math.random() * 100) + 3000);
-          console.log(`开始获取订单信息\n`)
+          console.log(`\n开始获取订单信息\n`)
           await marketgetItemList();
         }
       }
@@ -274,7 +274,7 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
         await $.wait(Math.floor(Math.random() * 100) + 3000);
         await plantd9();
         await $.wait(Math.floor(Math.random() * 100) + 3000);
-        console.log(`开始获取订单信息\n`)
+        console.log(`\n开始获取订单信息\n`)
         await marketgetItemList();
       }
     }
