@@ -42,6 +42,7 @@ let rqq = '[{"type":"carBox_receiveBoxReward","data":{}}]'
 let wzc = '[{"type":"carBox_receiveCarReward","data":{}}]'
 let id = ""
 let tx1 = '[{"type":"market_getItemList","data":{}}]'
+let market_getItemList = '[{"type":"market_getItemList","data":{}}]'
 
 let repair1 = '[{"type":"farmland_repair","data":{"farmlandDefId":1}}]'
 let repair2 = '[{"type":"farmland_repair","data":{"farmlandDefId":2}}]'
@@ -175,6 +176,9 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
           await plantd8();
           await $.wait(Math.floor(Math.random() * 100) + 3000);
           await plantd9();
+          await $.wait(Math.floor(Math.random() * 100) + 3000);
+          console.log(`开始获取订单信息\n`)
+          await marketgetItemList();
         }
       }
     } else {
@@ -269,6 +273,9 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
         await plantd8();
         await $.wait(Math.floor(Math.random() * 100) + 3000);
         await plantd9();
+        await $.wait(Math.floor(Math.random() * 100) + 3000);
+        console.log(`开始获取订单信息\n`)
+        await marketgetItemList();
       }
     }
   }
@@ -301,8 +308,8 @@ function fhxzck() {
     $.msg($.name, "", '富豪小镇' + `${status}` + '数据获取成功！')
   }
 }
-//抽奖
 
+//抽奖
 function zdcj(timeout = 0) {
   return new Promise((resolve) => {
 
@@ -385,6 +392,7 @@ function gjcd(timeout = 0) {
     }, timeout)
   })
 }
+
 //热气球
 function krqq(timeout = 0) {
   return new Promise((resolve) => {
@@ -517,6 +525,48 @@ function dailyQuestd(timeout = 0) {
           } else {
             $.log(lb[0]["data"]["questList"][i].title + `已完成`+(Number(lb[0]["data"]["questList"][i].displayProgress) / Number(lb[0]["data"]["questList"][i].displayTotalProgress) * 100).toFixed(2) + ` %\n`)
           }
+        }
+      } catch (e) {
+        $.logErr(e, resp);
+      } finally {
+        resolve()
+      }
+    }, timeout)
+  })
+}
+
+function marketgetItemList(timeout = 0) {
+  return new Promise((resolve) => {
+    id = fhxzurl.match(/Token=\S+&/)
+    //$.log(id) 
+    let url = {
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=market_getItemList',
+      body: market_getItemList,
+    }
+    $.post(url, async(err, resp, data) => {
+      try {
+        data = JSON.parse(data);
+        var lb = data
+        var label, target = ""
+        console.log(`开始获取订单信息\n`)
+        for (let i = 0; i < 9; i++) {
+          switch (lb[0]["data"]["marketItemList"][i].label) {
+            case "2":
+              label = "初级";
+              break;
+            case "3":
+              label = "中级";
+              break;
+            case "4":
+              label = "高级";
+              break;
+            default:
+              break;
+          }
+          if (lb[0]["data"]["marketItemList"][i].progress >= lb[0]["data"]["marketItemList"][i].targetNumber) {
+            target = "可以提交"
+          }
+          $.log(`物品：`+lb[0]["data"]["marketItemList"][i].title + `\t等级：` + label + `\t库存：` + lb[0]["data"]["marketItemList"][i].progress + `\t需求：` + lb[0]["data"]["marketItemList"][i].targetNumber + target)
         }
       } catch (e) {
         $.logErr(e, resp);
