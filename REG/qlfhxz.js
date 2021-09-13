@@ -548,7 +548,10 @@ function marketgetItemList(timeout = 0) {
         data = JSON.parse(data);
         var lb = data
         var label, target = ""
-        for (let i = 0; i < 9; i++) {
+        for (let i = 0; i < 10; i++) {
+          if (lb[0]["data"]["marketItemList"][i].title == "观看20个视频"){
+            label = ""
+          }
           switch (lb[0]["data"]["marketItemList"][i].label) {
             case "2":
               label = "初级";
