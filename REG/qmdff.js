@@ -26,7 +26,7 @@ hostname = *.lw0591.com
 // */1 * * * * http://nm66.top/qmdff.js, tag=柠檬全民大丰收, img-url=http://nm66.top/1.jpg, enabled=true
 
 const qmdff = '全民大丰收'
-const $ = Env('全民大丰收')
+const $ = new Env('全民大丰收')
 
 
 let status;
