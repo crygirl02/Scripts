@@ -548,7 +548,6 @@ function marketgetItemList(timeout = 0) {
         data = JSON.parse(data);
         var lb = data
         var label, target = ""
-        console.log(`开始获取订单信息\n`)
         for (let i = 0; i < 9; i++) {
           switch (lb[0]["data"]["marketItemList"][i].label) {
             case "2":
