@@ -29,10 +29,9 @@ const $ = new Env('全民大丰收')
 
 let status;
 status = (status = ($.getval("qmdffstatus") || "1") ) > 1 ? `${status}` : ""; 
+let qmdffurl = $.isNode() ? (process.env.qmdffurl ? process.env.qmdffurl : "") : ($.getdata('qmdffurl') ? $.getdata('qmdffurl') : "")
 qmdffheaderArr = []
 qmdffurlArr = []
-let qmdffheader = $.getdata('qmdffheader')
-let qmdffurl = $.getdata('qmdffurl')
 const logs =0;
 
 
