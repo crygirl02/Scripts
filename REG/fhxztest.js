@@ -94,6 +94,7 @@ function dailyQuestd(timeout = 0) {
       try {
         data = JSON.parse(data);
         var lb = data
+        console.log(`开始获取订单信息\n`)
         for (let i = 0; i < 9; i++) {
             $.log(lb[0]["data"]["marketItemList"][i].title)
             $.log(lb[0]["data"]["marketItemList"][i].label)
