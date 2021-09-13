@@ -30,43 +30,42 @@ const $ = new Env('全民大丰收')
 let status;
 status = (status = ($.getval("qmdffstatus") || "1") ) > 1 ? `${status}` : ""; 
 let qmdffurl = $.isNode() ? (process.env.qmdffurl ? process.env.qmdffurl : "") : ($.getdata('qmdffurl') ? $.getdata('qmdffurl') : "")
-qmdffheaderArr = []
-qmdffurlArr = []
-const logs =0;
+let qmdffurlArr = []
+let qmdffurls = ""
 !(async() => {
   if (typeof $request !== "undefined") {
     await tfbck()
   } else {
     if (!$.isNode()) {
-      fhxzurlArr.push($.getdata('fhxzurl'))
-      let tfbcount = ($.getval('tfbcount') || '1');
+      qmdffurlArr.push($.getdata('qmdffurl'))
+      let qmdffcount = ($.getval('qmdffcount') || '1');
       for (let i = 2; i <= tfbcount; i++) {
-        fhxzurlArr.push($.getdata(`fhxzurl${i}`))
+        qmdffurlArr.push($.getdata(`qmdffurl${i}`))
       }
-      console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
-      for (let i = 0; i < fhxzurlArr.length; i++) {
-        if (fhxzurlArr[i]) {
-          fhxzurl = fhxzurlArr[i];
+      console.log(`-------------共${qmdffurlArr.length}个账号-------------\n`)
+      for (let i = 0; i < qmdffurlArr.length; i++) {
+        if (qmdffurlArr[i]) {
+          qmdffurl = qmdffurlArr[i];
           $.index = i + 1;
           console.log(`\n开始【全民大丰收 ${$.index}】`)
         }
       }
     } else {
-      if (process.env.fhxzurl && process.env.fhxzurl.indexOf('@') > -1) {
-        fhxzurlArr = process.env.fhxzurl.split('@');
+      if (process.env.qmdffurl && process.env.qmdffurl.indexOf('@') > -1) {
+        qmdffurlArr = process.env.qmdffurl.split('@');
         console.log(`您选择的是用"@"隔开\n`)
       } else {
-        fhxzurls = [process.env.fhxzurl]
+        fhxzurls = [process.env.qmdffurl]
       };
-      Object.keys(fhxzurls).forEach((item) => {
-        if (fhxzurls[item]) {
-          fhxzurlArr.push(fhxzurls[item])
+      Object.keys(qmdffurls).forEach((item) => {
+        if (qmdffurls[item]) {
+          qmdffurlArr.push(qmdffurls[item])
         }
       })
-      console.log(`共${fhxzurlArr.length}个cookie`)
-      for (let k = 0; k < fhxzurlArr.length; k++) {
+      console.log(`共${qmdffurlArr.length}个cookie`)
+      for (let k = 0; k < qmdffurlArr.length; k++) {
         $.message = ""
-        fhxzurl = fhxzurlArr[k]
+        qmdffurl = qmdffurlArr[k]
         $.index = k + 1;
         console.log(`\n开始【全民大丰收 ${$.index}】`)
       }
