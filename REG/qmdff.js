@@ -33,7 +33,48 @@ let qmdffurl = $.isNode() ? (process.env.qmdffurl ? process.env.qmdffurl : "") :
 qmdffheaderArr = []
 qmdffurlArr = []
 const logs =0;
-
+!(async() => {
+  if (typeof $request !== "undefined") {
+    await tfbck()
+  } else {
+    if (!$.isNode()) {
+      fhxzurlArr.push($.getdata('fhxzurl'))
+      let tfbcount = ($.getval('tfbcount') || '1');
+      for (let i = 2; i <= tfbcount; i++) {
+        fhxzurlArr.push($.getdata(`fhxzurl${i}`))
+      }
+      console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
+      for (let i = 0; i < fhxzurlArr.length; i++) {
+        if (fhxzurlArr[i]) {
+          fhxzurl = fhxzurlArr[i];
+          $.index = i + 1;
+          console.log(`\n开始【全民大丰收 ${$.index}】`)
+        }
+      }
+    } else {
+      if (process.env.fhxzurl && process.env.fhxzurl.indexOf('@') > -1) {
+        fhxzurlArr = process.env.fhxzurl.split('@');
+        console.log(`您选择的是用"@"隔开\n`)
+      } else {
+        fhxzurls = [process.env.fhxzurl]
+      };
+      Object.keys(fhxzurls).forEach((item) => {
+        if (fhxzurls[item]) {
+          fhxzurlArr.push(fhxzurls[item])
+        }
+      })
+      console.log(`共${fhxzurlArr.length}个cookie`)
+      for (let k = 0; k < fhxzurlArr.length; k++) {
+        $.message = ""
+        fhxzurl = fhxzurlArr[k]
+        $.index = k + 1;
+        console.log(`\n开始【全民大丰收 ${$.index}】`)
+      }
+    }
+  }
+})()
+  .catch ((e) => $.logErr(e))
+  .finally(() => $.done())
 
 let isGetCookie = typeof $request !== 'undefined'
 if (isGetCookie) {
