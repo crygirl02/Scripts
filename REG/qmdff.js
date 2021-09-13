@@ -39,7 +39,7 @@ let qmdffurls = ""
     if (!$.isNode()) {
       qmdffurlArr.push($.getdata('qmdffurl'))
       let qmdffcount = ($.getval('qmdffcount') || '1');
-      for (let i = 2; i <= tfbcount; i++) {
+      for (let i = 2; i <= qmdffcount; i++) {
         qmdffurlArr.push($.getdata(`qmdffurl${i}`))
       }
       console.log(`-------------共${qmdffurlArr.length}个账号-------------\n`)
