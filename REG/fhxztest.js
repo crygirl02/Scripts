@@ -80,12 +80,6 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
           console.log(`\n开始获取订单信息\n`)
           await marketgetItemList();
         }
-        if (message.length != 0) {
-          await notify ? notify.sendNotify("订单完成", `${message}`) :
-            $.msg($.name, "订单完成", `${message}`);
-        } else if ($.isNode()) {
-          await notify.sendNotify("订单完成", `${message}`);
-        }
       }
     } else {
       if (process.env.fhxzurl && process.env.fhxzurl.indexOf('@') > -1) {
@@ -131,12 +125,6 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
         await plantAll(arr);
         console.log(`\n开始获取订单信息\n`)
         await marketgetItemList();
-      }
-      if (message.length != 0) {
-        await notify ? notify.sendNotify("订单完成", `${message}`) :
-          $.msg($.name, "订单完成", `${message}`);
-      } else if ($.isNode()) {
-        await notify.sendNotify("订单完成", `${message}`);
       }
     }
   }
