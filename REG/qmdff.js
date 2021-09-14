@@ -17,13 +17,14 @@ Tg群 t.me/ningmengwj
 【黑号专用】别管有没有广告 挂着刷着就行了
 
 [rewrite_local]
-https://fhnc-ii-game.lw0591.com/ws\Sparam=\S+UserID\S+TokenID\S+MsgID\S+Type\S+ url script-request-header http://nm66.top/qmdff.js
+https://fhnc-ii-game.lw0591.com/ws\Sparam=\S+UserID\S+TokenID\S+MsgID\S+Type\S+ url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/qmdff.js
 
+[MITM]
 hostname = *.lw0591.com
 */
 
 // [task_local]
-// * 8-23 * * * http://nm66.top/qmdff.js, tag=柠檬全民大丰收, img-url=http://nm66.top/1.jpg, enabled=true
+// * 8-23 * * * https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/qmdff.js, tag=全民大丰收, enabled=true
 
 const $ = new Env('全民大丰收')
 
@@ -34,95 +35,100 @@ let qmdffurlArr = []
 let qmdffurls = ""
 !(async() => {
   if (typeof $request !== "undefined") {
-    await tfbck()
+  await GetCookie()
   } else {
-    if (!$.isNode()) {
-      qmdffurlArr.push($.getdata('qmdffurl'))
-      let qmdffcount = ($.getval('qmdffcount') || '1');
-      for (let i = 2; i <= qmdffcount; i++) {
-        qmdffurlArr.push($.getdata(`qmdffurl${i}`))
-      }
-      console.log(`-------------共${qmdffurlArr.length}个账号-------------\n`)
-      for (let i = 0; i < qmdffurlArr.length; i++) {
-        if (qmdffurlArr[i]) {
-          qmdffurl = qmdffurlArr[i];
-          $.index = i + 1;
-          console.log(`\n开始【全民大丰收 ${$.index}】`)
-        }
-      }
-    } else {
-      if (process.env.qmdffurl && process.env.qmdffurl.indexOf('@') > -1) {
-        qmdffurlArr = process.env.qmdffurl.split('@');
-        console.log(`您选择的是用"@"隔开\n`)
-      } else {
-        fhxzurls = [process.env.qmdffurl]
-      };
-      Object.keys(qmdffurls).forEach((item) => {
-        if (qmdffurls[item]) {
-          qmdffurlArr.push(qmdffurls[item])
-        }
-      })
-      console.log(`共${qmdffurlArr.length}个cookie`)
-      for (let k = 0; k < qmdffurlArr.length; k++) {
-        $.message = ""
-        qmdffurl = qmdffurlArr[k]
-        $.index = k + 1;
-        console.log(`\n开始【全民大丰收 ${$.index}】`)
-      }
+  if (!$.isNode()) {
+    qmdffurlArr.push($.getdata('qmdffurl'))
+    let qmdffcount = ($.getval('qmdffcount') || '1');
+    for (let i = 2; i <= qmdffcount; i++) {
+    qmdffurlArr.push($.getdata(`qmdffurl${i}`))
     }
+    console.log(`-------------共${qmdffurlArr.length}个账号-------------\n`)
+    for (let i = 0; i < qmdffurlArr.length; i++) {
+    if (qmdffurlArr[i]) {
+      qmdffurl = qmdffurlArr[i];
+      $.index = i + 1;
+      console.log(`\n开始【全民大丰收 ${$.index}】`)
+    }
+    }
+  } else {
+    if (process.env.qmdffurl && process.env.qmdffurl.indexOf('@') > -1) {
+    qmdffurlArr = process.env.qmdffurl.split('@');
+    console.log(`您选择的是用"@"隔开\n`)
+    } else {
+    qmdffurls = [process.env.qmdffurl]
+    };
+    Object.keys(qmdffurls).forEach((item) => {
+    if (qmdffurls[item]) {
+      qmdffurlArr.push(qmdffurls[item])
+    }
+    })
+    console.log(`共${qmdffurlArr.length}个cookie`)
+    for (let k = 0; k < qmdffurlArr.length; k++) {
+    $.message = ""
+    qmdffurl = qmdffurlArr[k]
+    $.index = k + 1;
+    console.log(`\n开始【全民大丰收 ${$.index}】`)
+    }
+  }
   }
 })()
   .catch ((e) => $.logErr(e))
   .finally(() => $.done())
 
-/*
-let isGetCookie = typeof $request !== 'undefined'
-if (isGetCookie) {
-   GetCookie();
-   $.done()
-} 
-qmdffurlArr.push($.getdata('qmdffurl'))
-qmdffheaderArr.push($.getdata('qmdffheader'))
-    let qmdffcount = ($.getval('qmdffcount') || '1');
-  for (let i = 2; i <= qmdffcount; i++) {
-    qmdffheaderArr.push($.getdata(`qmdffheader${i}`))
-qmdffurlArr.push($.getdata(`qmdffurl${i}`))
-  }
 !(async () => {
-if (!qmdffheaderArr[0]) {
-    $.msg($.name, '【提示】请先获取数据 随便种个什么然后点钻石加速收取了')
-    return;
+if (typeof $request !== "undefined") {
+  GetCookie()
   }
-   console.log(`------------- 共${qmdffheaderArr.length}账号----------------\n`)
-  for (let i = 0; i < qmdffheaderArr.length; i++) {
-    if (qmdffheaderArr[i]) {
-      message = ''
-      qmdffheader = qmdffheaderArr[i];
-      qmdffurl = qmdffurlArr[i];
-      $.index = i + 1;
-      console.log(`\n开始【全民大丰收${$.index}】`)
+else {
+  if(!$.isNode()){
+    qmdffurlArr.push($.getdata('qmdffurl'))
+    let qmdffcount = ($.getval('qmdffcount')|| '1');
+    for(let i=2;i<=qmdffcount;i++){
+      qmdffurlArr.push($.getdata(`qmdffurl${i}`))
+    }
+    console.log(`------------- 共${qmdffurlArr.length}账号----------------\n`)
+    for(let i=0;i<qmdffurlArr.length;i++){
+      if(qmdffurlArr[i]){
+        qmdffurl = qmdffurlArr[i];
+        $.index=i+1
+        console.log(`\n开始【全民大丰收${$.index}】`)
+      }
+    }
+  }
+}
+    
+   /*
+     await hb1()
+     await hb2()
+     await hb3()
+     await zs()*/
      
-       await hb1()
-       await hb2()
-       await hb3()
-       await zs()
-       
-  }
- }
 })()
-    .catch((e) => $.logErr(e))
-    .finally(() => $.done())
-    
-    
+  .catch((e) => $.logErr(e))
+  .finally(() => $.done())
+
+function GetCookie() {
+  if ($request && $request.url.indexOf("UserID") >= 0) {
+    const qmdffurl = $request.url
+    id = qmdffurl.match(/TokenID%22%3A(\S+)%2C%22/)
+    $.log(id)
+    if (qmdffurl) $.setdata(qmdffurl, `qmdffurl${status}`)
+    $.log(qmdffurl)
+    $.msg($.name, "", '全民大丰收' + `${status}` + '数据获取成功！')
+  }
+}
+
+/*
 function GetCookie() {
 if($request&&$request.url.indexOf("UserID")>=0) {
    const qmdffurl = JSON.stringify($request.url)
    const qmdffheader = JSON.stringify($request.headers)
-if(qmdffurl)    $.setdata(qmdffurl,`qmdffurl${status}`)
-    if(qmdffheader)    $.setdata(qmdffheader,`qmdffheader${status}`)
-    $.log(`[${qmdff}] 获取请求: 成功,qmdffheader: ${qmdffurl}`)
+if(qmdffurl)  $.setdata(qmdffurl,`qmdffurl${status}`)
+  if(qmdffheader)  $.setdata(qmdffheader,`qmdffheader${status}`)
+  $.log(`[${qmdff}] 获取请求: 成功,qmdffheader: ${qmdffurl}`)
 $.log(`[${qmdff}] 获取: 成功: ${qmdffurl}`)
-    $.msg(`全民大丰收${status}: 成功`, ``)
+  $.msg(`全民大丰收${status}: 成功`, ``)
 }
 }
 
@@ -132,31 +138,31 @@ $.log(`[${qmdff}] 获取: 成功: ${qmdffurl}`)
 async function hb1(){
  return new Promise((resolve) => {
 
-    user = qmdffurl.match(/serID%22%3A(\d+)%2C%22T/)[1]
-    token = qmdffurl.match(/TokenID%22%3A(\d+)%/)[1]
+  user = qmdffurl.match(/serID%22%3A(\d+)%2C%22T/)[1]
+  token = qmdffurl.match(/TokenID%22%3A(\d+)%/)[1]
 
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A6%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-        if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  let plant6_url = {
+   url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A6%7D`,
     
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
+    
+  }
+   $.get(plant6_url,async(error, response, data) =>{
+  try{
+    const result = JSON.parse(data)
+    if(logs)$.log(data)
+    if(result.MsgID == 2001)
+      $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  
+     if(result.ErrCode == 2103)
+      
+      $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
+      
+    }catch(e) {
+      $.logErr(e, response);
+    } finally {
+    resolve();
+    } 
+  })
    })
   }
 async function hb2(){
@@ -164,28 +170,28 @@ async function hb2(){
 
    
 
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A5%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-   if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  let plant6_url = {
+   url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A5%7D`,
     
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
+    
+  }
+   $.get(plant6_url,async(error, response, data) =>{
+  try{
+    const result = JSON.parse(data)
+    if(logs)$.log(data)
+   if(result.MsgID == 2001)
+      $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  
+     if(result.ErrCode == 2103)
+      
+      $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
+      
+    }catch(e) {
+      $.logErr(e, response);
+    } finally {
+    resolve();
+    } 
+  })
    })
   }
   async function hb3(){
@@ -193,55 +199,55 @@ async function hb2(){
 
    
 
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A7%7D`,
-        
-        
-    }
-   $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-  if(result.MsgID == 2001)
-          $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  let plant6_url = {
+   url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2001%2C%22Type%22%3A7%7D`,
     
-       if(result.ErrCode == 2103)
-          
-          $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
+    
+  }
+   $.get(plant6_url,async(error, response, data) =>{
+  try{
+    const result = JSON.parse(data)
+    if(logs)$.log(data)
+  if(result.MsgID == 2001)
+      $.log("刷红包 "+result.RedMoney+"\n如果不加了手动去种植一个然后收取了")
+  
+     if(result.ErrCode == 2103)
+      
+      $.log("小伙子 今天红包刷完了或者手动去种植一个然后收取了"+result.RedMoney)
+      
+    }catch(e) {
+      $.logErr(e, response);
+    } finally {
+    resolve();
+    } 
+  })
    })
   }
   //钻石
-    async function zs(){
+  async function zs(){
  return new Promise((resolve) => {
 
-    let plant6_url = {
-     url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2003%2C%22Type%22%3A6%2C%22Diamonds%22%3A100%7D`,
-        
-        
-    }
+  let plant6_url = {
+   url: `https://fhnc-ii-game.lw0591.com/ws?param=%7B%22UserID%22%3A`+user+`%2C%22TokenID%22%3A`+token+`%2C%22MsgID%22%3A2003%2C%22Type%22%3A6%2C%22Diamonds%22%3A100%7D`,
+    
+    
+  }
    $.get(plant6_url,async(error, response, data) =>{
-    try{
-        const result = JSON.parse(data)
-        if(logs)$.log(data)
-        if(result.ErrCode == 2103)
-          $.log("小伙子 今天钻石刷完了")
-         
-        if(result.MsgID == 2003)
-          $.log("小伙子 刷100钻石成功")
-          
-        }catch(e) {
-          $.logErr(e, response);
-      } finally {
-        resolve();
-      } 
-    })
+  try{
+    const result = JSON.parse(data)
+    if(logs)$.log(data)
+    if(result.ErrCode == 2103)
+      $.log("小伙子 今天钻石刷完了")
+     
+    if(result.MsgID == 2003)
+      $.log("小伙子 刷100钻石成功")
+      
+    }catch(e) {
+      $.logErr(e, response);
+    } finally {
+    resolve();
+    } 
+  })
    })
   }
   */
