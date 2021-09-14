@@ -457,7 +457,7 @@ function speedUp(num) {
     //$.log(id) 
     let url = {
       url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_speedUp',
-      body: `'[{"type":"farmland_speedUp","data":{"farmlandDefId":${num},"priceType":2002}}]',`
+      body: `[{"type":"farmland_speedUp","data":{"farmlandDefId":${num},"priceType":2002}}]`,
     }
     $.post(url, async(err, resp, data) => {
       try {
