@@ -94,20 +94,6 @@ function GetCookie() {
 }
 
 /*
-function GetCookie() {
-if($request&&$request.url.indexOf("UserID")>=0) {
-   const qmdffurl = JSON.stringify($request.url)
-   const qmdffheader = JSON.stringify($request.headers)
-if(qmdffurl)  $.setdata(qmdffurl,`qmdffurl${status}`)
-  if(qmdffheader)  $.setdata(qmdffheader,`qmdffheader${status}`)
-  $.log(`[${qmdff}] 获取请求: 成功,qmdffheader: ${qmdffurl}`)
-$.log(`[${qmdff}] 获取: 成功: ${qmdffurl}`)
-  $.msg(`全民大丰收${status}: 成功`, ``)
-}
-}
-
-
-
 //红包1
 async function hb1(){
  return new Promise((resolve) => {
