@@ -353,12 +353,7 @@ function dailyQuestd(timeout = 0) {
           if (i == 1) {
             continue
           }
-          //$.log(lb[0]["data"]["questList"][i].questDefId)
-          if (lb[0]["data"]["questList"][i].displayProgress == lb[0]["data"]["questList"][i].displayTotalProgress) {
-            $.log(lb[0]["data"]["questList"][i].title + `已完成\n`)
-          } else {
-            $.log(lb[0]["data"]["questList"][i].title + `已完成`+(Number(lb[0]["data"]["questList"][i].displayProgress) / Number(lb[0]["data"]["questList"][i].displayTotalProgress) * 100).toFixed(2) + ` %\n`)
-          }
+            $.log(lb[0]["data"]["questList"][i].title + lb[0]["data"]["questList"][i].displayProgress +`/`+ lb[0]["data"]["questList"][i].displayTotalProgress + `已完成`)
         }
       } catch (e) {
         $.logErr(e, resp);
