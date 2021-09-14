@@ -19,6 +19,7 @@ https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getG
 // */10 8-23 * * * qlfhxz.js, tag=富豪小镇, enabled=true
 
 const $ = new Env('富豪小镇');
+const notify = $.isNode() ? require('./sendNotify') : '';
 let status;
 status = (status = ($.getval("tfbstatus") || "1")) > 1 ? `${status}` : ""; // 账号扩展字符
 let fhxzurlArr = []
@@ -38,7 +39,7 @@ let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questT
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
 !(async() => {
   if (typeof $request !== "undefined") {
-    await tfbck()
+    fhxzck()
   } else {
     if (!$.isNode()) {
       fhxzurlArr.push($.getdata('fhxzurl'))
@@ -78,6 +79,12 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
           await plantAll(arr);
           console.log(`\n开始获取订单信息\n`)
           await marketgetItemList();
+        }
+        if (message.length != 0) {
+          await notify ? notify.sendNotify("订单完成", `${message}`) :
+            $.msg($.name, "订单完成", `${message}`);
+        } else if ($.isNode()) {
+          await notify.sendNotify("订单完成", `${message}`);
         }
       }
     } else {
@@ -124,6 +131,12 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
         await plantAll(arr);
         console.log(`\n开始获取订单信息\n`)
         await marketgetItemList();
+      }
+      if (message.length != 0) {
+        await notify ? notify.sendNotify("订单完成", `${message}`) :
+          $.msg($.name, "订单完成", `${message}`);
+      } else if ($.isNode()) {
+        await notify.sendNotify("订单完成", `${message}`);
       }
     }
   }
@@ -351,7 +364,13 @@ function dailyQuestd(timeout = 0) {
           if (i == 1) {
             continue
           }
-            $.log(lb[0]["data"]["questList"][i].title + lb[0]["data"]["questList"][i].displayProgress +`/`+ lb[0]["data"]["questList"][i].displayTotalProgress + `已完成`)
+            $.log(lb[0]["data"]["questList"][i].title +`\t`+ lb[0]["data"]["questList"][i].displayProgress +`/`+ lb[0]["data"]["questList"][i].displayTotalProgress + `\t已完成`)
+            if(Number(lb[0]["data"]["questList"][i].displayProgress)>=Number(lb[0]["data"]["questList"][i].displayTotalProgress)){
+                $.message=`订单`+ lb[0]["data"]["questList"][i].title +`已可以完成`
+            }
+            else{
+                $.message=`订单`+ lb[0]["data"]["questList"][i].title +`还不能完成`
+            }
         }
       } catch (e) {
         $.logErr(e, resp);
@@ -481,7 +500,7 @@ function plant(num) {
     //$.log(id)  
     let url = {
       url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_plant',
-      body: `'[{"type":"farmland_plant","data":{"farmlandDefId":${num},"priceType":2001}}]'`,
+      body: `[{"type":"farmland_plant","data":{"farmlandDefId":${num},"priceType":2001}}]`,
     }
     $.post(url, async(err, resp, data) => {
       try {
@@ -512,7 +531,7 @@ function repair(num) {
       //$.log(id) 
       let url = {
         url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_repair',
-        body: `'[{"type":"farmland_repair","data":{"farmlandDefId":${num}}}]'`,
+        body: `[{"type":"farmland_repair","data":{"farmlandDefId":${num}}}]`,
       }
       $.post(url, async(err, resp, data) => {
         try {
@@ -544,7 +563,7 @@ function harvest(num) {
     id = fhxzurl.match(/Token=\S+&/)
     let url = {
       url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_harvest',
-      body: `'[{"type":"farmland_harvest","data":{"farmlandDefId":${num}}}]'`,
+      body: `[{"type":"farmland_harvest","data":{"farmlandDefId":${num}}}]`,
     }
     $.post(url, async(err, resp, data) => {
       try {
