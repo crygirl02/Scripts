@@ -17,7 +17,7 @@ Tg群 t.me/ningmengwj
 【黑号专用】别管有没有广告 挂着刷着就行了
 
 [rewrite_local]
-https://fhnc-ii-game.lw0591.com/ws\Sparam=\S+UserID\S+TokenID\S+MsgID\S+Type\S+Diamonds\S+ url script-request-header http://nm66.top/qmdff.js
+https://fhnc-ii-game.lw0591.com/ws\Sparam=\S+UserID\S+TokenID\S+MsgID\S+Type\S+ url script-request-header http://nm66.top/qmdff.js
 
 hostname = *.lw0591.com
 */
