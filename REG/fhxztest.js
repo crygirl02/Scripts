@@ -1,22 +1,22 @@
 /*
 [rewrite_local]
 #富豪小镇
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxztest.js
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js
 [MITM]
 hostname = sunnytown.hyskgame.com
 #loon
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxztest.js, requires-body=true, timeout=10, tag=富豪小镇
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, requires-body=true, timeout=10, tag=富豪小镇
 #surge
-柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://ghproxy.com/https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxztest.js,script-update-interval=0
+柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js,script-update-interval=0
 */
 
 // [task_local]
 //#柠檬富豪小镇
-// */10 8-23 * * * https://ghproxy.com/https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxztest.js, tag=富豪小镇, enabled=true
+// */10 8-23 * * * https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, tag=富豪小镇, enabled=true
 
 // [task_local]
 //#富豪小镇
-// */10 8-23 * * * fhxztest.js, tag=富豪小镇, enabled=true
+// */10 8-23 * * * qlfhxz.js, tag=富豪小镇, enabled=true
 
 const $ = new Env('富豪小镇');
 let status;
@@ -339,13 +339,11 @@ function tx3mao(timeout = 0) {
 function dailyQuestd(timeout = 0) {
   return new Promise((resolve) => {
     id = fhxzurl.match(/Token=\S+&/)
-    //$.log(id) 
     let url = {
       url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=dailyQuest_getQuestList',
       body: dailyQuest,
     }
     $.post(url, async(err, resp, data) => {
-      //$.log('充电'+data) 
       try {
         data = JSON.parse(data);
         var lb = data
@@ -488,9 +486,9 @@ function plant(num) {
     $.post(url, async(err, resp, data) => {
       try {
         if (data.match(/farmland_plant/) == 'farmland_plant') {
-          $.log(`9号工厂生产成功`)
+          $.log(`${num}号工厂生产成功`)
         } else {
-          $.log(`9号工厂还在生产中`)
+          $.log(`${num}号工厂还在生产中`)
         }
       } catch (e) {
         $.logErr(e, resp);
