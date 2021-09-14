@@ -75,38 +75,12 @@ let qmdffurls = ""
 })()
   .catch ((e) => $.logErr(e))
   .finally(() => $.done())
-
-!(async () => {
-if (typeof $request !== "undefined") {
-  GetCookie()
-  }
-else {
-  if(!$.isNode()){
-    qmdffurlArr.push($.getdata('qmdffurl'))
-    let qmdffcount = ($.getval('qmdffcount')|| '1');
-    for(let i=2;i<=qmdffcount;i++){
-      qmdffurlArr.push($.getdata(`qmdffurl${i}`))
-    }
-    console.log(`------------- 共${qmdffurlArr.length}账号----------------\n`)
-    for(let i=0;i<qmdffurlArr.length;i++){
-      if(qmdffurlArr[i]){
-        qmdffurl = qmdffurlArr[i];
-        $.index=i+1
-        console.log(`\n开始【全民大丰收${$.index}】`)
-      }
-    }
-  }
-}
     
    /*
      await hb1()
      await hb2()
      await hb3()
      await zs()*/
-     
-})()
-  .catch((e) => $.logErr(e))
-  .finally(() => $.done())
 
 function GetCookie() {
   if ($request && $request.url.indexOf("UserID") >= 0) {
