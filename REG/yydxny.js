@@ -220,6 +220,7 @@ function Order() {
                 }
               })              
             })
+            $.log("\n")
           }
           else{
             $.log("\n当前等级订单可以完成，请手动处理\n")
@@ -252,7 +253,7 @@ function allAcc() {
             $.log("\n全体加速成功，存钱罐增加：" + result.result.moneyIncrease)
           }
         } else {
-          console.log(`\n全体加速成功${result.message}`)
+          console.log(`\n全体加速：${result.message}`)
         }
       } catch (e) {
         $.logErr(e, response);
