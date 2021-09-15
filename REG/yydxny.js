@@ -283,7 +283,7 @@ function harvest(landIndex) {
         const result = JSON.parse(data)
         if (logs) $.log(data)
         if (result.code == 0) {
-          $.log(`${landIndex+1}号地收割成功，收获红包：${result.result.redBagTotal}\t金币：${result.result.bankNoteTotal}`)
+          $.log(`${landIndex+1}号地收割成功，收获红包：${result.result.redBagIncrease}\t金币：${result.result.bankNoteIncrease}`)
         } else {
           console.log(`${landIndex+1}号地${result.message}`)
         }
