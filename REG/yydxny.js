@@ -58,6 +58,7 @@ let products = '{"10101":"小麦","10102":"大豆","10103":"黄瓜","10104":"番
           await allAcc()
           await unlockLandAll(arr)
           //await unlockKitchenAll(arr)
+          await unLockPlanAll()
           await Order()
           await bank()
           await used()
