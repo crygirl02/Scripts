@@ -382,9 +382,7 @@ function marketgetItemList(timeout = 0) {
         data = JSON.parse(data);
         var lb = data
         var label, target = ""
-        var num = Number(lb[0]["data"].numOfReceived)
-        num == 8 ? num=10 : num
-        for (let i = 0; i < num; i++) {
+        for (let i = 0; i < 10; i++) {
           if (lb[0]["data"]["marketItemList"][i].title == "观看20个视频"){
             label = ""
           }
@@ -407,7 +405,7 @@ function marketgetItemList(timeout = 0) {
           $.log(`物品：`+lb[0]["data"]["marketItemList"][i].title + `\t等级：` + label + `\t库存：` + lb[0]["data"]["marketItemList"][i].progress + `\t需求：` + lb[0]["data"]["marketItemList"][i].targetNumber + target)
         }
       } catch (e) {
-        $.logErr(e, resp);
+        //$.logErr(e, resp);
       } finally {
         resolve()
       }
