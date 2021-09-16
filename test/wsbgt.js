@@ -1,10 +1,16 @@
 const $ = new Env('我是包工头');
 let status;
 status = (status = ($.getval("wsbgtstatus") || "1")) > 1 ? `${status}` : ""; // 账号扩展字符
-!(async()=>){
-  GetCookie()
-  } else {
-  }
+!(async()=>{
+    if(typeof $request !== 'undefined'){
+        GetCookie()
+    }
+    else{
+
+    }
+  })()
+  .catch((e)=>$.logErr(e))
+  .finally(()=>$.down())
 
 function GetCookie(){
   if($request.url.match("cn.game.77hd.com")){
