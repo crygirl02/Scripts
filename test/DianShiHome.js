@@ -39,15 +39,15 @@ function GetCookie() {
       "appid": "0990028e54b2329f2dfb4e5aeea6d625"
     }
     bodyVal2 = JSON.stringify(bodyVal)
-    if (dsj_header) {
-      if (dsj_header.indexOf(userid) > -1) {
+    if (DSJ_HEADER) {
+      if (DSJ_HEADER.indexOf(userid) > -1) {
         $.log("此cookie已存在，本次跳过")
-      } else if (dsj_header.indexOf(userid) === -1) {
-        dsj_headers = dsj_header + "@" + bodyVal2;
+      } else if (DSJ_HEADER.indexOf(userid) === -1) {
+        DSJ_HEADERS = DSJ_HEADER + "@" + bodyVal2;
         console.log(bodyVal2)
-        $.setdata(dsj_headers, 'dsj_header');
+        $.setdata(DSJ_HEADERS, 'dsj_header');
         $.log(`${$.name}获取cookie: 成功, dsj_headers: ${bodyVal}`);
-        bodys = dsj_headers.split("@")
+        bodys = DSJ_HEADERS.split("@")
         // $.msg($.name, "获取第" + bodys.length + "个Header请求: 成功🎉", ``)
       }
     } else {
