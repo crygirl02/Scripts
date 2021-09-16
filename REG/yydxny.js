@@ -402,7 +402,7 @@ function makeKitchen(kitchenId,oemId) {
         const result = JSON.parse(data)
         const productsJSON = JSON.parse(products)
         if (result.code == 0) {
-          $.log(`${kitchenId+1}号厨房制作${productsJSON[oemId]}成功，成熟时间：" + ${result.result.kitchenMessage.countdown}秒`)
+          $.log(`${kitchenId+1}号厨房制作${productsJSON[oemId]}成功，成熟时间： + ${result.result.kitchenMessage.countdown}秒`)
         } else {
           //console.log(`${kitchenId+1}号厨房，${result.message}`)
         }
