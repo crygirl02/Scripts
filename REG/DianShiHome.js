@@ -60,7 +60,7 @@ if ($.isNode() && process.env.dsj_header) {
                 await cash()
                 if($.time('HH')>=20){
                   await sleep()
-                } else if($.time('HH')>=8 && $.time('HH')<=12){
+                } else if($.time('HH')>=7 && $.time('HH')<=8){
                   await wakeup()
                 }
                   else if($.time('HH')>=12 && $.time('HH')<=13){
