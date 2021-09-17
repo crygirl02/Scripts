@@ -29,6 +29,7 @@ if ($.isNode() && process.env.dsj_header) {
                 $.log(`\n开始【电视家 ${$.index}】\n`)
                 await TaskAll()
                 await CoinInfo()
+                await CoinList()
             }
         }
         date = new Date()
