@@ -84,7 +84,7 @@ function GetHeader() {
 function TaskAll() {
   return new Promise((resolve) => {
     let url = {
-      url: `http://act.gaoqingdianshi.com/api/v5/task/get`,
+      url: `http://api.gaoqingdianshi.com/api/v5/task/get`,
       headers: JSON.parse(dsj_header1),
     }
     $.get(url, async(err, resp, data) => {
@@ -130,7 +130,7 @@ function CoinInfo() {
             })            
           }
           else{
-            $.log(`\n当前无气泡可以点击\n`)
+            $.log(`\n当前无金币可以领取\n`)
           }
         }
       }
@@ -155,6 +155,43 @@ function GetCoin(code) {
       }
       catch(e){
         $.logErr(e,response)
+      }
+      finally{
+        resolve()
+      }
+    })
+  })
+}
+
+function CoinList(){
+  return new Promise((resolve,reject)=>{
+    let url ={
+      url: `http://api.gaoqingdianshi.com/api/coin/detail`,
+      headers=JSON.parse(dsj_header1)
+    }
+    $.get(url,async(err,response,data)=>{
+      try{
+        let result = JSON.parse(data)
+        var Total=[]
+        var fromContainer={}
+        result.data.forEach(function(item){
+          fromContainer[item.from]=fromContainer[item.from]||[]
+          fromContainer[item.from].push(item)
+        })
+        $.log(fromContainer)
+        var fromName=Object.keys(fromContainer)
+        fromName.forEach(function(nameitem){
+          let count=0
+          fromContainer[nameitem].forEach(function(item){
+            amount = Number(item.amout)
+            count += amount
+          })
+          Total.push({'from':nameitem,'amout':count})
+        })
+        $.log(Total)
+      }
+      catch(e){
+        $.log(e,response)
       }
       finally{
         resolve()
