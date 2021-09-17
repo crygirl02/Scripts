@@ -125,6 +125,7 @@ function CoinInfo() {
           if(result.data.tempCoin != null){
             result.data.tempCoin.forEach(async function(item){
               await GetCoin(item.id)
+              $.log(`${item.from}点击气泡成功，获取金币 ${item.coin} 枚`)
               await $.wait(3000)
             })            
           }
@@ -151,7 +152,6 @@ function GetCoin(code) {
     }
     $.get(url,async(error, response, data) => {
       try{
-        console.log(`\n【${$.name}】: 点气泡成功`)
       }
       catch(e){
         $.logErr(e,response)
