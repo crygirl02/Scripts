@@ -52,7 +52,6 @@ if ($.isNode() && process.env.fhxzurl) {
   if (typeof $request !== "undefined") {
     fhxzck()
   } else {
-    if (!$.isNode()) {
       console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
       for (let i = 0; i < fhxzurlArr.length; i++) {
         if (fhxzurlArr[i]) {
@@ -85,7 +84,6 @@ if ($.isNode() && process.env.fhxzurl) {
           await marketgetItemList();
         }
       }
-    } 
   }
 })()
   .catch ((e) => $.logErr(e))
