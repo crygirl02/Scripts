@@ -43,7 +43,7 @@ if ($.isNode() && process.env.xffdhd) {
   .finally(() => $.done())
 
   function GetHeader() {
-    if ($request.url.indexOf(list)>-1) {
+    if ($request.url.indexOf("list")>-1) {
         headerVal = JSON.stringify($request.headers)
         result = JSON.parse(headerVal)
         accessKey = result.accessKey
