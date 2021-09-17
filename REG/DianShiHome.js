@@ -293,9 +293,9 @@ function dotaskV5(code) {
         let result = JSON.parse(data)
         let TaskJSON=JSON.parse(TaskCode)
         if (result.errCode == 0) {
-          console.log('【任务名称】：' + TaskJSON[code] + '，获得金币:' + result.data.getCoin)
+          $.log('【任务名称】：' + TaskJSON[code] + '，获得金币:' + result.data.getCoin)
         } else {
-          console.log('【任务名称】：' + TaskJSON[code] + '，' + result.msg)
+          $.log('【任务名称】：' + TaskJSON[code] + '，' + result.msg)
         }
       } catch (e) {
         $.logErr(e, response)
@@ -313,10 +313,22 @@ function getGametime() {
       headers : JSON.parse(dsj_header1),
     }
     $.get(url, (error, response, data) => {
-      let result=JSON.parse(data)
-      $.log(`【任务名称】：游戏时长，获得金币:${result.data.getCoin}\n`)
+      try{
+        let result=JSON.parse(data)
+        let TaskJSON=JSON.parse(TaskCode)
+        if (result.errCode == 0) {
+          $.log('【任务名称】：' + TaskJSON[code] + '，获得金币:' + result.data.getCoin)
+        } else {
+          $.log('【任务名称】：' + TaskJSON[code] + '，' + result.msg)
+        }        
+      }
+      catch(e){
+        $.logErr(e,response)
+      }
+      finally{
+        resolve()
+      }
     })
-    resolve()
   })
 }
 
