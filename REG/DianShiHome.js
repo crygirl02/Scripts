@@ -189,6 +189,7 @@ function CoinList(){
           Total.push({'from':nameitem,'amount':count})
         })
         let all=JSON.parse(Total)
+        $.debug(all)
         all.forEach(item=>{
           $.log(item.from)
           $.log(item.amount)
