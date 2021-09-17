@@ -179,7 +179,7 @@ function CoinList(){
           fromContainer[item.from]=fromContainer[item.from]||[]
           fromContainer[item.from].push(item)
         })
-        $.log(fromContainer)
+        $.log(fromContainer.toString())
         var fromName=Object.keys(fromContainer)
         fromName.forEach(function(nameitem){
           let count=0
@@ -189,7 +189,7 @@ function CoinList(){
           })
           Total.push({'from':nameitem,'amout':count})
         })
-        $.log(Total)
+        $.log(Total.toString())
       }
       catch(e){
         $.log(e,response)
