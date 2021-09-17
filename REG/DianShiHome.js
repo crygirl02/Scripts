@@ -4,7 +4,6 @@ message = ""
 let dsj_header= $.isNode() ? (process.env.dsj_header ? process.env.dsj_header : "") : ($.getdata('dsj_header') ? $.getdata('dsj_header') : "")
 let dsj_headerArr = []
 let dsj_headers = ""
-const dianshijia_API = 'http://api.gaoqingdianshi.com/api'
 const walkstep = '20000';
 const gametimes = "1999";
 
