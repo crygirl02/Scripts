@@ -176,6 +176,7 @@ function CoinList(){
         var Total=[]
         var fromContainer={}
         result.data.forEach(function(item){
+          $.log(item.from)
           fromContainer[item.from]=fromContainer[item.from]||[]
           fromContainer[item.from].push(item)
         })
@@ -187,12 +188,6 @@ function CoinList(){
             count += amount
           })
           Total.push({'from':nameitem,'amount':count})
-        })
-        let all=JSON.parse(Total)
-        $.debug(all)
-        all.forEach(item=>{
-          $.log(item.from)
-          $.log(item.amount)
         })
       }
       catch(e){
