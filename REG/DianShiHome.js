@@ -568,7 +568,7 @@ function wx_dotask(code) {
         "appid": "${JSON.parse(dsj_header1).appId}",
         "Host": "api.dianshihome.com",
         "content-type": "application/x-www-form-urlencoded",
-        "Referer": "https://servicewechat.com/wx9e8718eb2360dfb8/109/page-frame.html"
+        "Referer": "https://servicewechat.com/wx9e8718eb2360dfb8/117/page-frame.html"
       }`)
     }
     $.get(url, (error, response, data) => {
