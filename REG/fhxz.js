@@ -37,24 +37,28 @@ let market_getItemList = '[{"type":"market_getItemList","data":{}}]'
 let qtjs = '[{"type":"farmland_speedUpAll","data":{"farmlandDefId":0}}]'
 let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questType":1}}]'
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
+
+if ($.isNode() && process.env.fhxzurl) {
+  if (process.env.fhxzurl.indexOf('@') > -1) {
+    fhxzurlArr = process.env.fhxzurl.split('@');
+  } else if (process.env.fhxzurl.indexOf('\n') > -1) {
+    fhxzurlArr = process.env.fhxzurl.split('\n');
+  } else {
+    fhxzurlArr = [process.env.fhxzurl]
+  }
+}
+
 !(async() => {
   if (typeof $request !== "undefined") {
     fhxzck()
   } else {
     if (!$.isNode()) {
-      fhxzurlArr.push($.getdata('fhxzurl'))
-      let tfbcount = ($.getval('tfbcount') || '1');
-      for (let i = 2; i <= tfbcount; i++) {
-        fhxzurlArr.push($.getdata(`fhxzurl${i}`))
-      }
       console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
       for (let i = 0; i < fhxzurlArr.length; i++) {
         if (fhxzurlArr[i]) {
           fhxzurl = fhxzurlArr[i];
           $.index = i + 1;
           console.log(`\n开始【富豪小镇 ${$.index}】`)
-          //await wzcc(); //汽车
-          //await $.wait(Math.floor(Math.random()*100)+1000);      
           await dailyQuestd();
           await $.wait(Math.floor(Math.random() * 100) + 1000);
           await quantijs(); //全体加速
@@ -81,52 +85,7 @@ let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
           await marketgetItemList();
         }
       }
-    } else {
-      if (process.env.fhxzurl && process.env.fhxzurl.indexOf('@') > -1) {
-        fhxzurlArr = process.env.fhxzurl.split('@');
-        console.log(`您选择的是用"@"隔开\n`)
-      } else {
-        fhxzurls = [process.env.fhxzurl]
-      };
-      Object.keys(fhxzurls).forEach((item) => {
-        if (fhxzurls[item]) {
-          fhxzurlArr.push(fhxzurls[item])
-        }
-      })
-      console.log(`共${fhxzurlArr.length}个cookie`)
-      for (let k = 0; k < fhxzurlArr.length; k++) {
-        $.message = ""
-        fhxzurl = fhxzurlArr[k]
-        $.index = k + 1;
-        console.log(`\n开始【富豪小镇 ${$.index}】`)
-        //await wzcc(); //汽车
-        //await $.wait(Math.floor(Math.random()*100)+1000);       
-        await dailyQuestd();
-        await $.wait(Math.floor(Math.random() * 100) + 1000);
-        await quantijs(); //全体加速
-        await $.wait(Math.floor(Math.random() * 100) + 1000);
-        await jqgj(); //机器管家
-        await $.wait(Math.floor(Math.random() * 1000) + 15000);
-        await gjcd(); //管家充电
-        await $.wait(Math.floor(Math.random() * 100) + 7000);
-        await zdcj(); //自动抽奖
-        await $.wait(Math.floor(Math.random() * 100) + 7000);
-        await krqq(); //热气球
-        await $.wait(Math.floor(Math.random() * 100) + 1000);
-        await wzcc(); //汽车
-        await $.wait(Math.floor(Math.random() * 100) + 1000);
-        await txlb(); //提现列表
-        await $.wait(Math.floor(Math.random() * 1000) + 10000);
-        console.log(`\n开始修理工厂\n`)
-        await repairAll(arr);
-        console.log(`\n开始收取产品\n`)
-        await harvestAll(arr);
-        console.log(`\n开始生产产品\n`)
-        await plantAll(arr);
-        console.log(`\n开始获取订单信息\n`)
-        await marketgetItemList();
-      }
-    }
+    } 
   }
 })()
   .catch ((e) => $.logErr(e))
