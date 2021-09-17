@@ -339,15 +339,22 @@ function signin() {
       headers: JSON.parse(dsj_header1),
     }
     $.get(url, async(error, response, data) => {
-      let result = JSON.parse(data)
-      if (result.errCode == 0) {
-        console.log(`\n【签到收益】: ${result.data.reward[0].count}金币`)
-      } else if (result.errCode == 4) {
-        console.log(`\n【签到结果】重复签到`)
-      } else if (result.errCode == 6) {
-        console.log(`\n【签到结果】失败`)
+      try{
+        let result = JSON.parse(data)
+        if (result.errCode == 0) {
+          console.log(`\n【签到收益】: ${result.data.reward[0].count}金币`)
+        } else if (result.errCode == 4) {
+          console.log(`\n【签到结果】重复签到`)
+        } else if (result.errCode == 6) {
+          console.log(`\n【签到结果】失败`)
+        }
       }
-      resolve()
+      catch(e){
+        $.logErr(e,response)
+      }
+      finally{
+        resolve()
+      }
     })
   })
 }
