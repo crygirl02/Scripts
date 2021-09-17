@@ -172,7 +172,8 @@ function CoinList(){
     }
     $.get(url,async(err,response,data)=>{
       try{
-        let result = JSON.parse(data)
+        //let result = JSON.parse(data)
+        let result =eval(data)
         var Total=[]
         var fromContainer={}
         result.data.forEach(function(item){
