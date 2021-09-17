@@ -363,7 +363,7 @@ function signin() {
 function Reward() {
   return new Promise((resolve, reject) => {
     let url = {
-      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=55`,
+      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=41`,
       headers: JSON.parse(dsj_header1),
     }
     $.get(url, (error, response, data) => {
