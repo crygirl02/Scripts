@@ -176,9 +176,9 @@ function CoinList(){
         var Total=[]
         var fromContainer={}
         result.data.forEach(function(item){
-          $.log(item.from)
           fromContainer[item.from]=fromContainer[item.from]||[]
           fromContainer[item.from].push(item)
+          $.log(fromContainer[item.from])
         })
         var fromName=Object.keys(fromContainer)
         fromName.forEach(function(nameitem){
