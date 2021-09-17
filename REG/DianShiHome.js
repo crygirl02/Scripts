@@ -168,7 +168,7 @@ function CoinList(){
   return new Promise((resolve,reject)=>{
     let url ={
       url: `http://api.gaoqingdianshi.com/api/coin/detail`,
-      headers=JSON.parse(dsj_header1)
+      headers: JSON.parse(dsj_header1)
     }
     $.get(url,async(err,response,data)=>{
       try{
