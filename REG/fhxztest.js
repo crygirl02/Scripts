@@ -64,6 +64,7 @@ if ($.isNode()) {
 !(async () => {
   if (typeof $request !== "undefined") {
     GetToken()
+    $.done()
   } else {
     console.log(`-------------共${fhxzTokenArr.length}个账号-------------\n`)
     for (let i = 0; i < fhxzTokenArr.length; i++) {
