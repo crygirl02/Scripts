@@ -56,13 +56,13 @@ if ($.isNode() && process.env.dsj_header) {
         await wx_tasks()
         await getGametime()
         await GetInfo()
-        if ($.time('HH') >= 7 && $.time('HH') <= 8) {
+        if ($.time('HH') >= 7 && $.time('HH') <= 9) {
           await wakeup()
-        } else if ($.time('HH') >= 12 && $.time('HH') <= 13) {
+        } else if ($.time('HH') >= 12 && $.time('HH') <= 14) {
           await getCUpcoin()
-        } else if ($.time('HH') >= 14) {
+        } else if ($.time('HH') >= 14 && $.time('HH') <= 16) {
           await CarveUp()
-        } else if ($.time('HH') >= 20) {
+        } else if ($.time('HH') >= 20 && $.time('HH') <= 22) {
           await sleep()
         } else if ($.time('HH') >= 22) {
           await walk()
