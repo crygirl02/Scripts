@@ -20,9 +20,9 @@ https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getG
 
 const $ = new Env('富豪小镇_测试');
 const notify = $.isNode() ? require('./sendNotify') : '';
-let fhxzurlArr = []
-let fhxzurl = $.isNode() ? (process.env.fhxzurl ? process.env.fhxzurl : "") : ($.getdata('fhxzurl') ? $.getdata('fhxzurl') : "")
-let fhxzurls = ""
+let FHXZAccessTokenArr = []
+let FHXZAccessToken = $.isNode() ? (process.env.FHXZAccessToken ? process.env.FHXZAccessToken : "") : ($.getdata('FHXZAccessToken') ? $.getdata('FHXZAccessToken') : "")
+let FHXZAccessTokens = ""
 let arr=[1,2,3,4,5,6,7,8,9]
 let lottery = '[{"type":"lottery_draw","data":{"priceType":3001}}]'
 let gj = '[{"type":"pet_buyPet","data":{}}]'
@@ -36,26 +36,32 @@ let qtjs = '[{"type":"farmland_speedUpAll","data":{"farmlandDefId":0}}]'
 let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questType":1}}]'
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
 
-if (process.env.fhxzurl) {
-  if (process.env.fhxzurl.indexOf('@') > -1) {
-    fhxzurlArr = process.env.fhxzurl.split('@');
-  } else if (process.env.fhxzurl.indexOf('\n') > -1) {
-    fhxzurlArr = process.env.fhxzurl.split('\n');
-  } else {
-    fhxzurlArr = [process.env.fhxzurl]
+if($.isNode()){
+  if (process.env.FHXZAccessToken) {
+    if (process.env.FHXZAccessToken.indexOf('@') > -1) {
+      FHXZAccessTokenArr = process.env.FHXZAccessToken.split('@');
+    } else if (process.env.FHXZAccessToken.indexOf('\n') > -1) {
+      FHXZAccessTokenArr = process.env.FHXZAccessToken.split('\n');
+    } else {
+      FHXZAccessTokenArr = [process.env.FHXZAccessToken]
+    }
   }
+}
+else{
+  if(FHXZAccessToken){}
 }
 
 !(async() => {
   if (typeof $request !== "undefined") {
     GetAccessToken()
   } else {
-      console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
-      for (let i = 0; i < fhxzurlArr.length; i++) {
-        if (fhxzurlArr[i]) {
-          fhxzurl = fhxzurlArr[i];
+      console.log(`-------------共${FHXZAccessTokenArr.length}个账号-------------\n`)
+      for (let i = 0; i < FHXZAccessTokenArr.length; i++) {
+        if (FHXZAccessTokenArr[i]) {
+          FHXZAccess = FHXZAccessTokenArr[i];
           $.index = i + 1;
           console.log(`\n开始【富豪小镇 ${$.index}】`)
+          /*
           await dailyQuestd();
           await $.wait(Math.floor(Math.random() * 100) + 1000);
           await quantijs(); //全体加速
@@ -80,6 +86,7 @@ if (process.env.fhxzurl) {
           await plantAll(arr);
           console.log(`\n开始获取订单信息\n`)
           await marketgetItemList();
+          */
         }
       }
   }
