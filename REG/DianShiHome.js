@@ -9,6 +9,7 @@ var gametimes = Math.floor(Math.random() * 2000);
 var time = Date.parse(new Date()).toString();
 const TaskCode = ` {
 	"FirstDownLoginTv": "首次登录电视家TV端",
+	"SpWatchVideo" : "激励视频"
 	"Mobilewatchvideo": "激励视频",
 	"FirstDownLoginMobile": "首次下载并登录手机版",
 	"MutilPlatformActive": "双端活跃",
