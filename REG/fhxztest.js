@@ -56,7 +56,7 @@ if ($.isNode()) {
     } else if (fhxzToken.indexOf('&') > -1) {
       fhxzTokenArr.fhxzToken.split('&')
     } else {
-      fhxzTokenArr=[fhxzToken]
+      fhxzTokenArr = [fhxzToken]
     }
   }
 }
@@ -69,10 +69,9 @@ if ($.isNode()) {
     console.log(`-------------共${fhxzTokenArr.length}个账号-------------\n`)
     for (let i = 0; i < fhxzTokenArr.length; i++) {
       if (fhxzTokenArr[i]) {
-        fhxzToken = fhxzTokenArr[i];
+        fhxzToken = fhxzTokenArr[i]+"&";
         $.index = i + 1;
         console.log(`\n开始【富豪小镇 ${$.index}】`)
-        /*
         await dailyQuestd();
         await $.wait(Math.floor(Math.random() * 100) + 1000);
         await quantijs(); //全体加速
@@ -97,7 +96,6 @@ if ($.isNode()) {
         await plantAll(arr);
         console.log(`\n开始获取订单信息\n`)
         await marketgetItemList();
-        */
       }
     }
   }
@@ -106,26 +104,23 @@ if ($.isNode()) {
   .finally(() => $.done())
 
 
-function GetToken() {
-    $.log($request.url)
-  if ($request.url.indexOf("system_getGpvGameOptions") > -1) {
-    const fhxzurl = $request.url
-    id = fhxzurl.match(/token=(\S+)/)
-    let token={'accessToken=':id}
-    $.log(id)
-    if (token) $.setdata(token, `fhxzToken`)
-    $.msg($.name, "", '富豪小镇 token 数据获取成功！')
+  function GetToken() {
+    if ($request.url.indexOf("system_getGpvGameOptions") > -1) {
+      const fhxzurl = $request.url
+      id = fhxzurl.match(/Token=\w+/)
+      var token=JSON.stringify(id)
+      if (token) $.setdata(token, `fhxzToken`)
+      $.msg($.name, "", '富豪小镇 token 数据获取成功！')
+    }
   }
-}
 
 //抽奖
 function zdcj(timeout = 0) {
   return new Promise((resolve) => {
-
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=lottery_draw',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=lottery_draw',
       body: lottery,
     }
     $.post(url, async (err, resp, data) => {
@@ -149,10 +144,10 @@ function zdcj(timeout = 0) {
 //开启管家
 function jqgj(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=pet_buyPet',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=pet_buyPet',
       body: gj,
     }
     $.post(url, async (err, resp, data) => {
@@ -177,10 +172,10 @@ function jqgj(timeout = 0) {
 //管家充电
 function gjcd(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=pet_feedPetFood',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=pet_feedPetFood',
       body: cd,
     }
     $.post(url, async (err, resp, data) => {
@@ -205,10 +200,10 @@ function gjcd(timeout = 0) {
 //热气球
 function krqq(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id)  
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=carBox_receiveBoxReward',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=carBox_receiveBoxReward',
       body: rqq,
     }
     $.post(url, async (err, resp, data) => {
@@ -232,10 +227,10 @@ function krqq(timeout = 0) {
 //物资车
 function wzcc(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id)  
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=carBox_receiveCarReward',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=carBox_receiveCarReward',
       body: wzc,
     }
     $.post(url, async (err, resp, data) => {
@@ -259,10 +254,8 @@ function wzcc(timeout = 0) {
 //自动提现
 function txlb(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
-    //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=market_getItemList',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=market_getItemList',
       body: market_getItemList,
     }
     $.post(url, async (err, resp, data) => {
@@ -290,7 +283,7 @@ function txlb(timeout = 0) {
 function tx3mao(timeout = 0) {
   return new Promise((resolve) => {
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=market_exchange',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=market_exchange',
       body: '[{"type":"market_exchange","data":{"itemDefId":' + txid1 + '}}]',
     }
     $.post(url, async (err, resp, data) => {
@@ -311,11 +304,10 @@ function tx3mao(timeout = 0) {
   })
 }
 
-function dailyQuestd(timeout = 0) {
+function dailyQuestd() {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=dailyQuest_getQuestList',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=dailyQuest_getQuestList',
       body: dailyQuest,
     }
     $.post(url, async (err, resp, data) => {
@@ -339,16 +331,16 @@ function dailyQuestd(timeout = 0) {
       } finally {
         resolve()
       }
-    }, timeout)
+    })
   })
 }
 
 function marketgetItemList(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=market_getItemList',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=market_getItemList',
       body: market_getItemList,
     }
     $.post(url, async (err, resp, data) => {
@@ -390,10 +382,10 @@ function marketgetItemList(timeout = 0) {
 //全体加速
 function quantijs(timeout = 0) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_speedUpAll',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=farmland_speedUpAll',
       body: qtjs,
     }
     $.post(url, async (err, resp, data) => {
@@ -425,10 +417,10 @@ async function speedUpAll(Array) {
 
 function speedUp(num) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_speedUp',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=farmland_speedUp',
       body: `[{"type":"farmland_speedUp","data":{"farmlandDefId":${num},"priceType":2002}}]`,
     }
     $.post(url, async (err, resp, data) => {
@@ -456,10 +448,10 @@ async function plantAll(Array) {
 
 function plant(num) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id)  
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_plant',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=farmland_plant',
       body: `[{"type":"farmland_plant","data":{"farmlandDefId":${num},"priceType":2001}}]`,
     }
     $.post(url, async (err, resp, data) => {
@@ -487,10 +479,10 @@ async function repairAll(Array) {
 
 function repair(num) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     //$.log(id) 
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_repair',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=farmland_repair',
       body: `[{"type":"farmland_repair","data":{"farmlandDefId":${num}}}]`,
     }
     $.post(url, async (err, resp, data) => {
@@ -519,9 +511,9 @@ async function harvestAll(Array) {
 
 function harvest(num) {
   return new Promise((resolve) => {
-    id = fhxzurl.match(/Token=\S+&/)
+    //id = fhxzurl.match(/Token=\S+&/)
     let url = {
-      url: 'https://sunnytown.hyskgame.com/api/messages?access' + id + 'msgtype=farmland_harvest',
+      url: 'https://sunnytown.hyskgame.com/api/messages?access' + fhxzToken + 'msgtype=msgtype=farmland_harvest',
       body: `[{"type":"farmland_harvest","data":{"farmlandDefId":${num}}}]`,
     }
     $.post(url, async (err, resp, data) => {
