@@ -59,14 +59,19 @@ if ($.isNode() && process.env.dsj_header) {
         await GetInfo()
         if ($.time('HH') >= 7 && $.time('HH') <= 9) {
           await wakeup()
+	  await notify.sendNotify($.name,"参与睡觉得金币成功")
         } else if ($.time('HH') >= 12 && $.time('HH') <= 14) {
           await getCUpcoin()
+	  await notify.sendNotify($.name,"瓜分百万金币成功")
         } else if ($.time('HH') >= 14 && $.time('HH') <= 16) {
           await CarveUp()
+	  await notify.sendNotify($.name,"报名瓜分百万金币")
         } else if ($.time('HH') >= 20 && $.time('HH') <= 22) {
           await sleep()
+	  await notify.sendNotify($.name,"报名参与睡觉得金币")
         } else if ($.time('HH') >= 22) {
           await walk()
+	  await notify.sendNotify($.name,"步数换金币成功")
         }
         await cash()
       }
