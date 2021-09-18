@@ -1,28 +1,30 @@
 /*
 [rewrite_local]
 #富豪小镇
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/fhxztest.js
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js
 [MITM]
 hostname = sunnytown.hyskgame.com
 #loon
-https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/fhxztest.js, requires-body=true, timeout=10, tag=富豪小镇
+https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions url script-request-body https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, requires-body=true, timeout=10, tag=富豪小镇
 #surge
-柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/fhxztest.js,script-update-interval=0
+柠檬富豪小镇 = type=https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getGpvGameOptions,requires-body=1,max-size=0,script-path=https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js,script-update-interval=0
 */
 
 // [task_local]
 //#富豪小镇
-// */10 8-23 * * * https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/fhxztest.js, tag=富豪小镇, enabled=true
+// */10 8-23 * * * https://ghproxy.com/https://raw.githubusercontent.com/panghu999/ningmeng/main/fhxz.js, tag=富豪小镇, enabled=true
 
 // [task_local]
 //#富豪小镇
 // */10 8-23 * * * qlfhxz.js, tag=富豪小镇, enabled=true
 
-const $ = new Env('富豪小镇_测试');
+const $ = new Env('富豪小镇');
 const notify = $.isNode() ? require('./sendNotify') : '';
-let FHXZAccessTokenArr = []
-let FHXZAccessToken = $.isNode() ? (process.env.FHXZAccessToken ? process.env.FHXZAccessToken : "") : ($.getdata('FHXZAccessToken') ? $.getdata('FHXZAccessToken') : "")
-let FHXZAccessTokens = ""
+let status;
+status = (status = ($.getval("tfbstatus") || "1")) > 1 ? `${status}` : ""; // 账号扩展字符
+let fhxzurlArr = []
+let fhxzurl = $.isNode() ? (process.env.fhxzurl ? process.env.fhxzurl : "") : ($.getdata('fhxzurl') ? $.getdata('fhxzurl') : "")
+let fhxzurls = ""
 let arr=[1,2,3,4,5,6,7,8,9]
 let lottery = '[{"type":"lottery_draw","data":{"priceType":3001}}]'
 let gj = '[{"type":"pet_buyPet","data":{}}]'
@@ -37,31 +39,39 @@ let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questT
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
 
 if($.isNode()){
-  if (process.env.FHXZAccessToken) {
-    if (process.env.FHXZAccessToken.indexOf('@') > -1) {
-      FHXZAccessTokenArr = process.env.FHXZAccessToken.split('@');
-    } else if (process.env.FHXZAccessToken.indexOf('\n') > -1) {
-      FHXZAccessTokenArr = process.env.FHXZAccessToken.split('\n');
+  if (process.env.fhxzurl) {
+    if (process.env.fhxzurl.indexOf('@') > -1) {
+      fhxzurlArr = process.env.fhxzurl.split('@');
+    } else if (process.env.fhxzurl.indexOf('\n') > -1) {
+      fhxzurlArr = process.env.fhxzurl.split('\n');
     } else {
-      FHXZAccessTokenArr = [process.env.FHXZAccessToken]
+      Object.keys(process.env.fhxzurl).forEach(item=>{
+        fhxzurlArr.push(item)
+      })
+    }
+  }
+} else {
+  fhxzurl=($.getdata('fhxzurl'))?$.getdata('fhxzurl'):""
+  if(fhxzurl){
+    if(fhxzurl.indexOf('@')==-1){
+      fhxzurlArr.push(fhxzurl)
+    } else if (fhxzurl.indexOf('\n')>-1){
+      fhxzurlArr.fhxzurl.split('\n')
     }
   }
 }
-else{
-  if(FHXZAccessToken){}
-}
+
 
 !(async() => {
   if (typeof $request !== "undefined") {
-    GetAccessToken()
+    fhxzck()
   } else {
-      console.log(`-------------共${FHXZAccessTokenArr.length}个账号-------------\n`)
-      for (let i = 0; i < FHXZAccessTokenArr.length; i++) {
-        if (FHXZAccessTokenArr[i]) {
-          FHXZAccess = FHXZAccessTokenArr[i];
+      console.log(`-------------共${fhxzurlArr.length}个账号-------------\n`)
+      for (let i = 0; i < fhxzurlArr.length; i++) {
+        if (fhxzurlArr[i]) {
+          fhxzurl = fhxzurlArr[i];
           $.index = i + 1;
           console.log(`\n开始【富豪小镇 ${$.index}】`)
-          /*
           await dailyQuestd();
           await $.wait(Math.floor(Math.random() * 100) + 1000);
           await quantijs(); //全体加速
@@ -86,7 +96,6 @@ else{
           await plantAll(arr);
           console.log(`\n开始获取订单信息\n`)
           await marketgetItemList();
-          */
         }
       }
   }
@@ -95,15 +104,16 @@ else{
   .finally(() => $.done())
 
 
-  function GetAccessToken() {
-    if ($request.url.indexOf("system_getGpvGameOptions") > -1) {
-      const fhxzurl = $request.url
-      AccessToken = fhxzurl.match(/accessToken=(\S+)/)
-      if (AccessToken) $.setdata(AccessToken, `FHXZ_AccessToken`)
-      $.msg($.name, "", '富豪小镇 FHXZ_AccessToken 数据获取成功！')
-    }
+function fhxzck() {
+  if ($request.url.indexOf("system_getGpvGameOptions") > -1) {
+    const fhxzurl = $request.url
+    id = fhxzurl.match(/token=(\S+)/)
+    $.log(id)
+    if (fhxzurl) $.setdata(fhxzurl, `fhxzurl${status}`)
+    $.log(fhxzurl)
+    $.msg($.name, "", '富豪小镇' + `${status}` + '数据获取成功！')
   }
-
+}
 
 //抽奖
 function zdcj(timeout = 0) {
