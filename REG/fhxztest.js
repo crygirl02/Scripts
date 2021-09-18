@@ -112,7 +112,8 @@ function GetToken() {
     const fhxzurl = $request.url
     id = fhxzurl.match(/token=(\S+)/)
     let token={'accessToken=':id}
-    if (id) $.setdata(token, `fhxzToken`)
+    $.log(token)
+    if (token) $.setdata(token, `fhxzToken`)
     $.msg($.name, "", '富豪小镇 token 数据获取成功！')
   }
 }
