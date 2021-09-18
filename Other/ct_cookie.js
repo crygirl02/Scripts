@@ -3,19 +3,19 @@ const cookieName = '携程小程序签到'
 const bodyKey = 'chen_body_xc'
 const headerKey = 'chen_header_xc'
 const urlKey = 'chen_url_xc'
-  if ($request.url.match(/16575\/signin/)) {
-    const urlVal = $request.url
-    //const bodyVal = $request.body
-    const headerVal = JSON.stringify($request.headers)
-    const bodyVal = JSON.stringify($request.body)
-    if (urlVal) chen.setdata(urlVal, urlKey)
-    if (bodyVal) chen.setdata(bodyVal, bodyKey)
-    if (headerVal) chen.setdata(headerVal, headerKey)
-    chen.msg(`${cookieName}`, '获取Cookie: 成功 ', '')
-    chen.log(`❕${cookieName} 获取Cookie: 成功, url: ${urlVal}`)
-    chen.log(`❕ ${cookieName} 获取Cookie: 成功, body: ${bodyVal}`)
-    chen.log(`❕ ${cookieName} 获取Cookie: 成功, header: ${headerVal}`)
-  }
+if ($request.url.match(/16575\/signin/)) {
+  const urlVal = $request.url
+  //const bodyVal = $request.body
+  const headerVal = JSON.stringify($request.headers)
+  const bodyVal = JSON.stringify($request.body)
+  if (urlVal) chen.setdata(urlVal, urlKey)
+  if (bodyVal) chen.setdata(bodyVal, bodyKey)
+  if (headerVal) chen.setdata(headerVal, headerKey)
+  chen.msg(`${cookieName}`, '获取Cookie: 成功 ', '')
+  chen.log(`❕${cookieName} 获取Cookie: 成功, url: ${urlVal}`)
+  chen.log(`❕ ${cookieName} 获取Cookie: 成功, body: ${bodyVal}`)
+  chen.log(`❕ ${cookieName} 获取Cookie: 成功, header: ${headerVal}`)
+}
 
 function init() {
   isSurge = () => {
