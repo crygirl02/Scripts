@@ -276,8 +276,8 @@ function HTTP(
     options =
       typeof options === "string"
         ? {
-            url: options,
-          }
+          url: options,
+        }
         : options;
     const baseURL = defaultOptions.baseURL;
     if (baseURL && !URL_REGEX.test(options.url || "")) {
@@ -290,9 +290,9 @@ function HTTP(
     const timeout = options.timeout;
     const events = {
       ...{
-        onRequest: () => {},
+        onRequest: () => { },
         onResponse: (resp) => resp,
-        onTimeout: () => {},
+        onTimeout: () => { },
       },
       ...options.events,
     };
@@ -340,20 +340,20 @@ function HTTP(
     let timeoutid;
     const timer = timeout
       ? new Promise((_, reject) => {
-          timeoutid = setTimeout(() => {
-            events.onTimeout();
-            return reject(
-              `${method} URL: ${options.url} exceeds the timeout ${timeout} ms`
-            );
-          }, timeout);
-        })
+        timeoutid = setTimeout(() => {
+          events.onTimeout();
+          return reject(
+            `${method} URL: ${options.url} exceeds the timeout ${timeout} ms`
+          );
+        }, timeout);
+      })
       : null;
 
     return (timer
       ? Promise.race([timer, worker]).then((res) => {
-          clearTimeout(timeoutid);
-          return res;
-        })
+        clearTimeout(timeoutid);
+        return res;
+      })
       : worker
     ).then((resp) => events.onResponse(resp));
   }
