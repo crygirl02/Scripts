@@ -108,13 +108,12 @@ if ($.isNode()) {
 
 function GetToken() {
     $.log($request.url)
-  if ($request.url.indexOf("system_getGpvGameOptions") > -1) {
+  if ($request.url.indexOf("accessToken") > -1) {
     const fhxzurl = $request.url
     id = fhxzurl.match(/token=(\S+)/)
     let token={'accessToken=':id}
     if (id) $.setdata(token, `fhxzToken`)
-    $.log(fhxzurl)
-    $.msg($.name, "", '富豪小镇' + `${status}` + '数据获取成功！')
+    $.msg($.name, "", '富豪小镇 token 数据获取成功！')
   }
 }
 
