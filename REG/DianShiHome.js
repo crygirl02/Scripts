@@ -60,7 +60,7 @@ if ($.isNode() && process.env.dsj_header) {
                 await cash()
                 if($.time('HH')>=20){
                   await sleep()
-                } else if($.time('HH')>=8 && $.time('HH')<=12){
+                } else if($.time('HH')>=7 && $.time('HH')<=8){
                   await wakeup()
                 }
                   else if($.time('HH')>=12 && $.time('HH')<=13){
@@ -363,7 +363,7 @@ function signin() {
 function Reward() {
   return new Promise((resolve, reject) => {
     let url = {
-      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=55`,
+      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=41`,
       headers: JSON.parse(dsj_header1),
     }
     $.get(url, (error, response, data) => {
