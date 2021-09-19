@@ -4,10 +4,10 @@ message = ""
 let dsj_header = $.isNode() ? (process.env.dsj_header ? process.env.dsj_header : "") : ($.getdata('dsj_header') ? $.getdata('dsj_header') : "")
 let dsj_headerArr = []
 let dsj_headers = ""
-const walkstep = Math.floor(Math.random() * 2000)+19800;
-var gametimes = Math.floor(Math.random() * 200)+2000;
+const walkstep = Math.floor(Math.random() * 2000) + 19800;
+var gametimes = Math.floor(Math.random() * 200) + 2000;
 var time = Date.parse(new Date()).toString();
-var TaskArr=[]
+var TaskArr = []
 const TaskCode = ` {
 	"FirstDownLoginTv": "首次登录电视家TV端",
 	"SpWatchVideo" : "激励视频",
@@ -75,19 +75,23 @@ else {
         await GetInfo()
         if ($.time('HH') >= 7 && $.time('HH') <= 9) {
           await wakeup()
-	  await notify.sendNotify($.name,"参与睡觉得金币成功")
-        } else if ($.time('HH') >= 12 && $.time('HH') <= 14) {
+          await notify.sendNotify($.name, "参与睡觉得金币成功")
+        }
+        if ($.time('HH') >= 12 && $.time('HH') <= 14) {
           await getCUpcoin()
-	  await notify.sendNotify($.name,"瓜分百万金币成功")
-        } else if ($.time('HH') >= 14 && $.time('HH') <= 16) {
+          await notify.sendNotify($.name, "瓜分百万金币成功")
+        }
+        if ($.time('HH') >= 14 && $.time('HH') <= 16) {
           await CarveUp()
-	  await notify.sendNotify($.name,"报名瓜分百万金币")
-        } else if ($.time('HH') >= 20 && $.time('HH') <= 22) {
+          await notify.sendNotify($.name, "报名瓜分百万金币")
+        }
+        if ($.time('HH') >= 20 && $.time('HH') <= 22) {
           await sleep()
-	  await notify.sendNotify($.name,"报名参与睡觉得金币")
-        } else if ($.time('HH') >= 22) {
+          await notify.sendNotify($.name, "报名参与睡觉得金币")
+        }
+        if ($.time('HH') >= 22) {
           await walk()
-	  await notify.sendNotify($.name,"步数换金币成功")
+          await notify.sendNotify($.name, "步数换金币成功")
         }
         await cash()
       }
@@ -484,18 +488,18 @@ function walk() {
 
 function getCUpcoin() {
   return new Promise((resolve, reject) => {
-    let url={
+    let url = {
       url: `http://api.gaoqingdianshi.com/api/taskext/getCoin?ext=0&code=carveUp`,
-      headers: JSON.parse(dsj_header1),      
+      headers: JSON.parse(dsj_header1),
     }
     $.get(url, (error, response, data) => {
-      try{
+      try {
         $.log(`【瓜分百万金币】: 获得${data}金币`)
       }
-      catch(e){
-        $.logErr(e,response)
+      catch (e) {
+        $.logErr(e, response)
       }
-      finally{
+      finally {
         resolve()
       }
     })
