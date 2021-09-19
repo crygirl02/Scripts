@@ -1,6 +1,6 @@
 const $ = new Env("电视家_新");
 const notify = $.isNode() ? require('./sendNotify') : '';
-message = ""
+let message = ""
 let dsj_header = $.isNode() ? (process.env.dsj_header ? process.env.dsj_header : "") : ($.getdata('dsj_header') ? $.getdata('dsj_header') : "")
 let dsj_headerArr = []
 let dsj_headers = ""
@@ -74,25 +74,26 @@ else {
         await GetInfo()
         if ($.time('HH') >= 7 && $.time('HH') <= 9) {
           await wakeup()
-          await notify.sendNotify($.name, "参与睡觉得金币成功")
+          message=message + "参与睡觉得金币成功\n"
         }
         if ($.time('HH') >= 12 && $.time('HH') <= 14) {
           await getCUpcoin()
-          await notify.sendNotify($.name, "瓜分百万金币成功")
+          message = message + "瓜分百万金币成功\n"
         }
         if ($.time('HH') >= 14 && $.time('HH') <= 16) {
           await CarveUp()
-          await notify.sendNotify($.name, "报名瓜分百万金币")
+          message = message + "报名瓜分百万金币\n"
         }
         if ($.time('HH') >= 20 && $.time('HH') <= 22) {
           await sleep()
-          await notify.sendNotify($.name, "报名参与睡觉得金币")
+          message = message + "报名参与睡觉得金币\n"
         }
         if ($.time('HH') >= 22) {
           await walk()
-          await notify.sendNotify($.name, "步数换金币成功")
+          message = message + "步数换金币成功\n"
         }
         await cash()
+	await notify.sendNotify($.name,message)
       }
     }
     date = new Date()
