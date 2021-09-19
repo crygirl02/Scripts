@@ -22,6 +22,10 @@ else {
     }
     else {
         console.log(`-------------共${bianliangArr.length}个账号-------------\n`)
+        for(i=0;i<bianliangArr.length;i++){
+            console.log(`开始${$.name}${i+1}`)
+            bianliang=bianliangArr[i]
+        }
     }
 })()
     .catch((e) => $.logErr(e))
