@@ -27,6 +27,7 @@ const TaskCode = ` {
 	"sleep": "睡觉赚钱"
 }`
 
+/*
 if ($.isNode() && process.env.dsj_header) {
   if (process.env.dsj_header.indexOf('@') > -1) {
     dsj_headerArr = process.env.dsj_header.split('@');
@@ -35,6 +36,20 @@ if ($.isNode() && process.env.dsj_header) {
   } else {
     dsj_headerArr = [process.env.dsj_header]
   }
+}
+*/
+
+dsj_header = ($.getdata('dsj_header')) ? $.getdata('dsj_header') : (process.env.dsj_header ? process.env.dsj_header : "")
+
+if (dsj_header.indexOf('@') > -1) {
+  dsj_headerArr = dsj_header.split('@')
+} else if (dsj_header.indexOf('&') > -1) {
+  dsj_headerArr = dsj_header.split('&')
+} else if (dsj_header.indexOf('\n') > -1) {
+  dsj_headerArr = dsj_header.split('\n')
+}
+else {
+  dsj_headerArr = [dsj_header]
 }
 
 !(async () => {
