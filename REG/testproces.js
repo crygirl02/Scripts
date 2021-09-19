@@ -1,3 +1,7 @@
+/*
+测试用环境变量：bianliang
+*/
+
 const $ = new Env('测试环境变量')
 const notify = $.isNode() ? require('./sendNotify') : ''
 
