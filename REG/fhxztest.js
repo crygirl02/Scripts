@@ -34,6 +34,7 @@ let qtjs = '[{"type":"farmland_speedUpAll","data":{"farmlandDefId":0}}]'
 let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questType":1}}]'
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
 
+/*
 if ($.isNode()) {
   if (process.env.fhxzToken) {
     if (process.env.fhxzToken.indexOf('@') > -1) {
@@ -59,6 +60,20 @@ if ($.isNode()) {
       fhxzTokenArr = [fhxzToken]
     }
   }
+}
+*/
+
+fhxzToken = ($.getdata('fhxzToken')) ? $.getdata('fhxzToken') : (process.env.fhxzToken ? process.env.fhxzToken : "")
+
+if (fhxzToken.indexOf('@') > -1) {
+    fhxzTokenArr = fhxzToken.split('@')
+} else if (fhxzToken.indexOf('&') > -1) {
+    fhxzTokenArr = fhxzToken.split('&')
+} else if (fhxzToken.indexOf('\n') > -1) {
+    fhxzTokenArr = fhxzToken.split('\n')
+}
+else {
+    fhxzTokenArr = [fhxzToken]
 }
 
 !(async () => {
