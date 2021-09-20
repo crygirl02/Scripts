@@ -7,7 +7,7 @@
 //[task_local]
 // */30 8-23 * * * https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/dsj.js, tag=电视家, enabled=true
 
-const $ = new Env("电视家_新");
+const $ = new Env("电视家");
 const notify = $.isNode() ? require('./sendNotify') : '';
 let message = ""
 let dsj_header = $.isNode() ? (process.env.dsj_header ? process.env.dsj_header : "") : ($.getdata('dsj_header') ? $.getdata('dsj_header') : "")
