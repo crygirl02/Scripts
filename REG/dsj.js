@@ -83,7 +83,7 @@ else {
         await GetInfo()
         if ($.time('HH') >= 7 && $.time('HH') <= 9) {
           await wakeup()
-          message=message + "参与睡觉得金币成功\n"
+          message = message + "参与睡觉得金币成功\n"
         }
         if ($.time('HH') >= 12 && $.time('HH') <= 14) {
           await getCUpcoin()
@@ -102,7 +102,7 @@ else {
           message = message + "步数换金币成功\n"
         }
         await cash()
-	await notify.sendNotify($.name,message)
+        (message!="")?await notify.sendNotify($.name, message):$.done()
       }
     }
     date = new Date()
