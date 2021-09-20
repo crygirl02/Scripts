@@ -1,11 +1,11 @@
 //[rewrite_locak]
-//https://bp-api.coohua.com/bubuduo-xffd/mall/game/cash/list url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/dsj.js
+//https://bp-api.coohua.com/bubuduo-xffd/mall/game/cash/list url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/dsj.js
 
 //[MITM]
 //hostname=*.gaoqingdianshi.com
 
 //[task_local]
-// */30 8-23 * * * https://raw.githubusercontent.com/crygirl02/Scripts/test/REG/dsj.js, tag=电视家, enabled=true
+// */30 8-23 * * * https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/dsj.js, tag=电视家, enabled=true
 
 const $ = new Env("电视家");
 const notify = $.isNode() ? require('./sendNotify') : '';
@@ -35,18 +35,6 @@ const TaskCode = ` {
 	"carveUp": "百万金币",
 	"sleep": "睡觉赚钱"
 }`
-
-/*
-if ($.isNode() && process.env.dsj_header) {
-  if (process.env.dsj_header.indexOf('@') > -1) {
-    dsj_headerArr = process.env.dsj_header.split('@');
-  } else if (process.env.dsj_header.indexOf('\n') > -1) {
-    dsj_headerArr = process.env.dsj_header.split('\n');
-  } else {
-    dsj_headerArr = [process.env.dsj_header]
-  }
-}
-*/
 
 dsj_header = ($.getdata('dsj_header')) ? $.getdata('dsj_header') : (process.env.dsj_header ? process.env.dsj_header : "")
 
