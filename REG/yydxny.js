@@ -36,14 +36,17 @@ const logs = 0;
 let products = '{"10101":"小麦","10102":"大豆","10103":"黄瓜","10104":"番茄","10105":"南瓜","10106":"辣椒","10107":"草莓","10108":"葡萄","10109":"土豆","10110":"胡萝卜","10111":"茄子","10112":"甘蔗","10113":"蓝莓","10114":"棉花","10115":"薰衣草","20101":"馒头","20102":"面条","20103":"豆腐","20104":"豆皮","20105":"豆浆","20106":"腌黄瓜","20107":"番茄酱","20108":"南瓜干","20109":"干辣椒","20110":"草莓干","20111":"葡萄干","20112":"包子","20113":"南瓜饼","20114":"豆瓣酱","20115":"什锦果汁","20116":"酱油","20117":"大豆油","20118":"啤酒","20119":"葡萄酒","20120":"豆腐乳"}'
 let oemConf='{"20101":{"name":"馒头","plant":[{"plantID":10101,"num":1},{"plantID":"","num":0}]},"20102":{"name":"面条","plant":[{"plantID":10101,"num":2},{"plantID":"","num":0}]},"20103":{"name":"豆腐","plant":[{"plantID":10102,"num":1},{"plantID":"","num":0}]},"20104":{"name":"豆皮","plant":[{"plantID":10102,"num":2},{"plantID":"","num":0}]},"20105":{"name":"豆浆","plant":[{"plantID":10102,"num":3},{"plantID":"","num":0}]},"20106":{"name":"腌黄瓜","plant":[{"plantID":10103,"num":2},{"plantID":"","num":0}]},"20107":{"name":"番茄酱","plant":[{"plantID":10104,"num":2},{"plantID":"","num":0}]},"20108":{"name":"南瓜干","plant":[{"plantID":10105,"num":2},{"plantID":"","num":0}]},"20109":{"name":"干辣椒","plant":[{"plantID":10106,"num":2},{"plantID":"","num":0}]},"20110":{"name":"草莓干","plant":[{"plantID":10107,"num":2},{"plantID":"","num":0}]},"20111":{"name":"葡萄干","plant":[{"plantID":10108,"num":2},{"plantID":"","num":0}]},"20112":{"name":"包子","plant":[{"plantID":10101,"num":2},{"plantID":10103,"num":1}]},"20113":{"name":"南瓜饼","plant":[{"plantID":10101,"num":2},{"plantID":10105,"num":1}]},"20114":{"name":"豆瓣酱","plant":[{"plantID":10102,"num":2},{"plantID":10106,"num":2}]},"20115":{"name":"什锦果汁","plant":[{"plantID":10107,"num":2},{"plantID":10108,"num":2}]},"20116":{"name":"酱油","plant":[{"plantID":10101,"num":2},{"plantID":10102,"num":2}]},"20117":{"name":"大豆油","plant":[{"plantID":10102,"num":4},{"plantID":"","num":0}]},"20118":{"name":"啤酒","plant":[{"plantID":10101,"num":4},{"plantID":"","num":0}]},"20119":{"name":"葡萄酒","plant":[{"plantID":10108,"num":4},{"plantID":"","num":0}]},"20120":{"name":"豆腐乳","plant":[{"plantID":20103,"num":2},{}]}}'
 
-if ($.isNode() && process.env.yyxnyhd) {
-  if (process.env.yyxnyhd.indexOf('@') > -1) {
-    yyxnyhdArr = process.env.yyxnyhd.split('@');
-  } else if (process.env.yyxnyhd.indexOf('\n') > -1) {
-    yyxnyhdArr = process.env.yyxnyhd.split('\n');
-  } else {
-    yyxnyhdArr = [process.env.yyxnyhd]
-  }
+yyxnyhd = ($.getdata('yyxnyhd')) ? $.getdata('yyxnyhd') : (process.env.yyxnyhd ? process.env.yyxnyhd : "")
+
+if (yyxnyhd.indexOf('@') > -1) {
+  yyxnyhdArr = yyxnyhd.split('@')
+} else if (yyxnyhd.indexOf('&') > -1) {
+  yyxnyhdArr = yyxnyhd.split('&')
+} else if (yyxnyhd.indexOf('\n') > -1) {
+  yyxnyhdArr = yyxnyhd.split('\n')
+}
+else {
+  yyxnyhdArr = [yyxnyhd]
 }
 
 !(async() => {
