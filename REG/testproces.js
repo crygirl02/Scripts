@@ -27,7 +27,7 @@ else {
     else {
         console.log(`-------------共${bianliangArr.length}个账号-------------\n`)
         for(i=0;i<bianliangArr.length;i++){
-            console.log(`开始${$.name}${i+1}`)
+            $.log(`开始${$.name}${i+1}`)
             bianliang=bianliangArr[i]
         }
     }
@@ -47,7 +47,7 @@ function postName() {
 
             }
             catch (e) {
-                console.logErr(e, response)
+                $.logErr(e, response)
             }
             finally {
                 resolve()
@@ -67,7 +67,7 @@ function getName() {
 
             }
             catch (e) {
-                console.logErr(e, response)
+                $.logErr(e, response)
             }
             finally {
                 resolve()
