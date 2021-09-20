@@ -4,7 +4,7 @@
 
 const $ = new Env('测试环境变量')
 const notify = $.isNode() ? require('./sendNotify') : ''
-
+let message=""
 bianliang = ($.getdata('bianliang')) ? $.getdata('bianliang') : (process.env.bianliang ? process.env.bianliang : "")
 
 if (bianliang.indexOf('@') > -1) {
@@ -31,6 +31,7 @@ else {
             bianliang=bianliangArr[i]
         }
     }
+    await notify.SendNotify($.name,message)
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
