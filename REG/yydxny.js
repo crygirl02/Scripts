@@ -4,13 +4,13 @@
 
 [rewrite_local]
 #爷爷的小农院
-https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxz.js
+https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/yydxny.js
 [MITM]
 hostname = bp-api.coohua.com
 #loon
-https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxz.js, requires-header=true, timeout=10, tag=柠檬爷爷的小农院
+https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData url script-request-header https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/yydxny.js, requires-header=true, timeout=10, tag=爷爷的小农院
 #surge
-爷爷的小农院 = type=https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData,requires-header=1,max-size=0,script-path=https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/fhxz.js,script-update-interval=0
+爷爷的小农院 = type=https://bp-api.coohua.com/bubuduo-yydxny/sync/syncData,requires-header=1,max-size=0,script-path=https://raw.githubusercontent.com/crygirl02/Scripts/main/REG/yydxny.js,script-update-interval=0
 
 -------------青龙或者其他容器运行-------------
 -------------青龙拉取-------------
@@ -23,7 +23,7 @@ export yyxnyhd='{"bs":"CDMA","osVersion":"iOS 14.30","pkgId":"313","Host":"bp-ap
 */
 // cron "*/10 8-23 * * *" yydxny.js, tag:爷爷的小农院
 // [task_local]
-//#柠檬爷爷的小农院
+//#爷爷的小农院
 // */10 8-23 * * * yydxny.js, tag=爷爷的小农院, enabled=true
 const $ = new Env('爷爷的小农院');
 let status;
