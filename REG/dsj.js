@@ -110,8 +110,6 @@ else {
       if (message.length != 0) {
         await notify.sendNotify("电视家", `${message}\n\ n`);
       }
-    } else {
-      $.msg($.name, message)
     }
   }
 })()
