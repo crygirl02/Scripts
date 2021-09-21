@@ -63,17 +63,31 @@ if ($.isNode()) {
 }
 */
 
-fhxzToken = ($.getdata('fhxzToken')) ? $.getdata('fhxzToken') : (process.env.fhxzToken ? process.env.fhxzToken : "")
-
-if (fhxzToken.indexOf('@') > -1) {
-  fhxzTokenArr = fhxzToken.split('@')
-} else if (fhxzToken.indexOf('&') > -1) {
-  fhxzTokenArr = fhxzToken.split('&')
-} else if (fhxzToken.indexOf('\n') > -1) {
-  fhxzTokenArr = fhxzToken.split('\n')
-}
-else {
-  fhxzTokenArr = [fhxzToken]
+if ($.isNode()) {
+  if (process.env.fhxzToken) {
+      if (process.env.fhxzToken.indexOf('@') > -1) {
+          fhxzTokenArr = process.env.fhxzToken.split('@');
+      } else if (process.env.fhxzToken.indexOf('\n') > -1) {
+          fhxzTokenArr = process.env.fhxzToken.split('\n');
+      } else if (process.env.fhxzToken.indexOf('&') > -1) {
+          fhxzTokenArr = process.env.fhxzToken.split('&');
+      } else {
+          fhxzTokenArr = [process.env.fhxzToken]
+      }
+  }
+} else {
+  fhxzToken = ($.getdata('fhxzToken')) ? $.getdata('fhxzToken') : ""
+  if (fhxzToken) {
+      if (fhxzToken.indexOf('@') == -1) {
+          fhxzTokenArr.push(fhxzToken)
+      } else if (fhxzToken.indexOf('\n') > -1) {
+          fhxzTokenArr.fhxzToken.split('\n')
+      } else if (fhxzToken.indexOf('&') > -1) {
+          fhxzTokenArr.fhxzToken.split('&')
+      } else {
+          fhxzTokenArr = [fhxzToken]
+      }
+  }
 }
 
 !(async () => {

@@ -4,35 +4,36 @@
 
 const $ = new Env('百度果园测试')
 const notify = $.isNode() ? require('./sendNotify') : ''
-let message=""
-let BaiduCookieArr=[]
+let message = ""
+let BaiduCookieArr = []
+const UA='Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
 
 if ($.isNode()) {
     if (process.env.BaiduCookie) {
-      if (process.env.BaiduCookie.indexOf('@') > -1) {
-        BaiduCookieArr = process.env.BaiduCookie.split('@');
-      } else if (process.env.BaiduCookie.indexOf('\n') > -1) {
-        BaiduCookieArr = process.env.BaiduCookie.split('\n');
-      } else if (process.env.BaiduCookie.indexOf('&') > -1) {
-        BaiduCookieArr = process.env.BaiduCookie.split('&');
-      } else {
-        BaiduCookieArr = [process.env.BaiduCookie]
-      }
+        if (process.env.BaiduCookie.indexOf('@') > -1) {
+            BaiduCookieArr = process.env.BaiduCookie.split('@');
+        } else if (process.env.BaiduCookie.indexOf('\n') > -1) {
+            BaiduCookieArr = process.env.BaiduCookie.split('\n');
+        } else if (process.env.BaiduCookie.indexOf('&') > -1) {
+            BaiduCookieArr = process.env.BaiduCookie.split('&');
+        } else {
+            BaiduCookieArr = [process.env.BaiduCookie]
+        }
     }
-  } else {
+} else {
     BaiduCookie = ($.getdata('BaiduCookie')) ? $.getdata('BaiduCookie') : ""
     if (BaiduCookie) {
-      if (BaiduCookie.indexOf('@') == -1) {
-        BaiduCookieArr.push(BaiduCookie)
-      } else if (BaiduCookie.indexOf('\n') > -1) {
-        BaiduCookieArr.BaiduCookie.split('\n')
-      } else if (BaiduCookie.indexOf('&') > -1) {
-        BaiduCookieArr.BaiduCookie.split('&')
-      } else {
-        BaiduCookieArr=[BaiduCookie]
-      }
+        if (BaiduCookie.indexOf('@') == -1) {
+            BaiduCookieArr.push(BaiduCookie)
+        } else if (BaiduCookie.indexOf('\n') > -1) {
+            BaiduCookieArr.BaiduCookie.split('\n')
+        } else if (BaiduCookie.indexOf('&') > -1) {
+            BaiduCookieArr.BaiduCookie.split('&')
+        } else {
+            BaiduCookieArr = [BaiduCookie]
+        }
     }
-  }
+}
 
 
 !(async () => {
@@ -42,9 +43,10 @@ if ($.isNode()) {
     }
     else {
         console.log(`-------------共${BaiduCookieArr.length}个账号-------------\n`)
-        for(i=0;i<BaiduCookieArr.length;i++){
-            $.log(`开始${$.name}${i+1}`)
-            BaiduCookie=BaiduCookieArr[i]
+        for (i = 0; i < BaiduCookieArr.length; i++) {
+            $.log(`开始${$.name}${i + 1}`)
+            BaiduCookie = BaiduCookieArr[i]
+            await TaskList()
         }
     }
     //await notify.sendNotify($.name,message)
@@ -52,6 +54,59 @@ if ($.isNode()) {
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
 
+function TaskList() {
+    return new Promise((resolve) => {
+        let url = {
+            url: 'https://orchard.baidu.com/orchard/v2/tasks/list',
+            headers: {
+                'Cookie': BaiduCookie,
+                'User-Agent': UA,
+            },
+        }
+        $.get(url, async (err, response, data) => {
+            try {
+                const result = JSON.parse(data)
+                if(result.errno==0){
+                    result.data.list.forEach(item=>{
+                        $.log(item.taskId)
+                    })
+                }
+            }
+            catch (e) {
+                $.logErr(e, response)
+            }
+            finally {
+                resolve()
+            }
+        })
+    })
+}
+
+function BucketWater() {
+    return new Promise((resolve) => {
+        let url = {
+            url: 'https://orchard.baidu.com/orchard/collect/water?waterType=bucket',
+            headers: {
+                'Cookie': BaiduCookie,
+                'User-Agent': UA,
+            },
+        }
+        $.get(url, async (err, response, data) => {
+            try {
+                const result = JSON.parse(data)
+                if(result.errno==0){
+                    $.log(`收集水桶水滴：${result.data.rewardWater}`)
+                }
+            }
+            catch (e) {
+                $.logErr(e, response)
+            }
+            finally {
+                resolve()
+            }
+        })
+    })
+}
 
 function postName() {
     return new Promise((resolve) => {
@@ -61,7 +116,10 @@ function postName() {
         }
         $.post(url, async (err, response, data) => {
             try {
+                const result = JSON.parse(data)
+                if (result.errno == 0) {
 
+                }
             }
             catch (e) {
                 $.logErr(e, response)
@@ -81,7 +139,7 @@ function getName() {
         }
         $.get(url, async (err, response, data) => {
             try {
-
+                const result = JSON.parse(data)
             }
             catch (e) {
                 $.logErr(e, response)
@@ -97,7 +155,7 @@ function GetHeaders() {
     if ($request.url.indexOf('orchard') > -1) {
         const BaiduCookie = JSON.stringify($request.headers)
         let Headers = JSON.parse(BaiduCookie)
-        Headers = BaiduCookie.match(/BDUSS=\w+/).toString()
+        Headers = BaiduCookie.match(/BAIDUCUID=\w+; BDUSS=\w+;/).toString()
         $.setdata(Headers, 'BaiduCookie')
         $.msg($.name, "数据获取成功")
     }
