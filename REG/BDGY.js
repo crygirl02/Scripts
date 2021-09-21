@@ -2,6 +2,7 @@
 测试用环境变量：BaiduCookie
 打开百度果园，获取百度CK
 浇一次水，获取种子ID
+自己换下UA
 */
 
 const $ = new Env('百度果园测试')
