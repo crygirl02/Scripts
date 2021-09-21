@@ -93,9 +93,9 @@ function getName() {
 function GetHeaders() {
     if ($request.url.indexOf('orchard') > -1) {
         const BaiduCookie = JSON.stringify($request.headers)
-        let Headers = JSON.parse(BaiduCookie)
-        Headers = BaiduCookie.match().toString()
-        if (Headers) $.setdata(Headers, 'BaiduCookie')
+        let Cookie = JSON.parse(BaiduCookie)
+        Cookie = Cookie.match(/BDUSS=\w+/).toString()
+        if (Cookie) $.setdata(Cookie, 'BaiduCookie')
         $.msg($.name, "数据获取成功")
     }
 }
