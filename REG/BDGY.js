@@ -120,6 +120,35 @@ function Three_MealsWater() {
     })
 }
 
+function red_packetWater() {
+    return new Promise((resolve) => {
+        let url = {
+            url: `https://orchard.baidu.com/orchard/collect/water?waterType=red_packet`,
+            headers: {
+                'Cookie': BaiduCookie,
+                'User-Agent': UA,
+            },
+        }
+        $.get(url, async (err, response, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.errno == 0) {
+                    $.log(`开红包获得水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
+                }
+                else{
+                    $.log(`${result.msg}\n`)
+                }
+            }
+            catch (e) {
+                $.logErr(e, response)
+            }
+            finally {
+                resolve()
+            }
+        })
+    })
+}
+
 function TaskWater(code) {
     return new Promise((resolve) => {
         let url = {
@@ -146,7 +175,7 @@ function TaskWater(code) {
     })
 }
 
-async function Watering() {
+function Watering() {
     return new Promise((resolve) => {
         $.wait(Math.random() * 200 + 5000)
         let url = {
@@ -161,11 +190,13 @@ async function Watering() {
                 const result = JSON.parse(data)
                 if (result.errno == 0) {
                     water = result.data.waterInfo.availableWaterDrop
+                    $.log(`浇水成功，剩余水滴${water}\n`)
                     count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
                     redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
-                    $.log(`剩余水滴：${water}，可以浇水${count}次\n`)
+                    if(redpacket_leftcount==0){
+                        await red_packetWater()
+                    }
                     for (i = 1; i <= count; i++) {
-                        $.log(`第${i}浇水成功，剩余水滴${water - 10}\n`)
                         await Watering()
                         await $.wait(Math.random() * 200 + 5000)
                     }
