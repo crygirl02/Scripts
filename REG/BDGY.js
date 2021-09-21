@@ -51,48 +51,19 @@ if ($.isNode() && process.env.BaiduPlantNo) {
     else {
         console.log(`-------------共${BaiduCookieArr.length}个账号-------------\n`)
         for (i = 0; i < BaiduCookieArr.length; i++) {
-            $.log(`开始${$.name}${i + 1}`)
+            $.log(`开始${$.name}${i + 1}\n`)
             BaiduCookie = BaiduCookieArr[i]
-            await TaskList()
             await BucketWater()
-            await Watering()
             if ($.time('HH') >= 7 && $.time('HH') <= 9) await Three_MealsWater()
             if ($.time('HH') >= 11 && $.time('HH') <= 14) await Three_MealsWater()
             if ($.time('HH') >= 18 && $.time('HH') <= 21) await Three_MealsWater()
+            await Watering()
         }
     }
     //await notify.sendNotify($.name,message)
 })()
     .catch((e) => $.logErr(e))
     .finally(() => $.done())
-
-function TaskList() {
-    return new Promise((resolve) => {
-        let url = {
-            url: 'https://orchard.baidu.com/orchard/v2/tasks/list',
-            headers: {
-                'Cookie': BaiduCookie,
-                'User-Agent': UA,
-            },
-        }
-        $.get(url, async (err, response, data) => {
-            try {
-                const result = JSON.parse(data)
-                if (result.errno == 0) {
-                    result.data.list.forEach(item => {
-                        $.log(`taskID:${item.taskId},taskName:${item.taskName}`)
-                    })
-                }
-            }
-            catch (e) {
-                $.logErr(e, response)
-            }
-            finally {
-                resolve()
-            }
-        })
-    })
-}
 
 function BucketWater() {
     return new Promise((resolve) => {
@@ -107,7 +78,7 @@ function BucketWater() {
             try {
                 const result = JSON.parse(data)
                 if (result.errno == 0) {
-                    $.log(`收集水桶水滴：${result.data.rewardWater}g`)
+                    $.log(`收集水桶水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
                 }
             }
             catch (e) {
@@ -133,10 +104,10 @@ function Three_MealsWater() {
             try {
                 const result = JSON.parse(data)
                 if (result.errno == 0) {
-                    $.log(`领取三餐水滴：${result.data.rewardWater}g`)
+                    $.log(`领取三餐水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
                 }
                 else{
-                    $.log(result.msg)
+                    $.log(`${result.msg}\n`)
                 }
             }
             catch (e) {
@@ -175,9 +146,9 @@ function TaskWater(code) {
     })
 }
 
-function Watering() {
+async function Watering() {
     return new Promise((resolve) => {
-        await $.wait(Math.random() * 200 + 5000)
+        $.wait(Math.random() * 200 + 5000)
         let url = {
             url: `https://orchard.baidu.com/orchard/plant/watering?${BaiduPlantNo}`,
             headers: {
@@ -192,14 +163,14 @@ function Watering() {
                     water = result.data.waterInfo.availableWaterDrop
                     count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
                     redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
-                    $.log(`剩余水滴：${water}，可以浇水${count}次`)
+                    $.log(`剩余水滴：${water}，可以浇水${count}次\n`)
                     for (i = 1; i <= count; i++) {
-                        $.log(`第${i}浇水成功，剩余水滴${water - 10}`)
+                        $.log(`第${i}浇水成功，剩余水滴${water - 10}\n`)
                         await Watering()
                         await $.wait(Math.random() * 200 + 5000)
                     }
                 } else {
-                    $.log(`${result.msg}`)
+                    $.log(`${result.msg}\n`)
                 }
             }
             catch (e) {
