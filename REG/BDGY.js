@@ -2,10 +2,11 @@
 测试用环境变量：BaiduCookie
 */
 
-const $ = new Env('测试环境变量')
+const $ = new Env('百度果园测试')
 const notify = $.isNode() ? require('./sendNotify') : ''
 let message=""
 let BaiduCookieArr=[]
+
 if ($.isNode()) {
     if (process.env.BaiduCookie) {
       if (process.env.BaiduCookie.indexOf('@') > -1) {
