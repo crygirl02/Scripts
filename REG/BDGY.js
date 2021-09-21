@@ -1,14 +1,10 @@
-/*
-测试用环境变量：bianliang
-*/
-
 const $ = new Env('测试环境变量')
 const notify = $.isNode() ? require('./sendNotify.js') : ''
 let message = ""
 
 try {
     if ($env.name == "elecV2P") {
-        bianliang = ($.getdata('bianliang')) ? $.getdata('bianliang') : ""
+        BaiduCookie = ($.getdata('BaiduCookie')) ? $.getdata('BaiduCookie') : ""
     }
 }
 catch (e) { }
@@ -16,21 +12,21 @@ finally { }
 
 try {
     if (process.env.HOSTNAME == "QingLong")
-        bianliang = process.env.bianliang ? process.env.bianliang : ""
+        BaiduCookie = process.env.BaiduCookie ? process.env.BaiduCookie : ""
 }
 catch (e) { }
 finally { }
 
 
-if (bianliang.indexOf('@') > -1) {
-    bianliangArr = bianliang.split('@')
-} else if (bianliang.indexOf('&') > -1) {
-    bianliangArr = bianliang.split('&')
-} else if (bianliang.indexOf('\n') > -1) {
-    bianliangArr = bianliang.split('\n')
+if (BaiduCookie.indexOf('@') > -1) {
+    BaiduCookieArr = BaiduCookie.split('@')
+} else if (BaiduCookie.indexOf('&') > -1) {
+    BaiduCookieArr = BaiduCookie.split('&')
+} else if (BaiduCookie.indexOf('\n') > -1) {
+    BaiduCookieArr = BaiduCookie.split('\n')
 }
 else {
-    bianliangArr = [bianliang]
+    BaiduCookieArr = [BaiduCookie]
 }
 
 
@@ -41,10 +37,10 @@ else {
         $.done()
     }
     else {
-        console.log(`-------------共${bianliangArr.length}个账号-------------\n`)
-        for (i = 0; i < bianliangArr.length; i++) {
+        console.log(`-------------共${BaiduCookieArr.length}个账号-------------\n`)
+        for (i = 0; i < BaiduCookieArr.length; i++) {
             $.log(`开始${$.name}${i + 1}`)
-            bianliang = bianliangArr[i]
+            BaiduCookie = BaiduCookieArr[i]
         }
     }
     await notify.sendNotify($.name, message)
@@ -93,21 +89,13 @@ function getName() {
     })
 }
 
-function GetCookie() {
-    if ($request.url.indexOf('') > -1) {
-        const bianliangUrl = $request.url
-        let Cookie = bianliangUrl.match()
-        if (Cookie) $.setdata(Cookie, 'bianliangCookie')
-        $.msg($.name, "数据获取成功")
-    }
-}
 
 function GetHeaders() {
-    if ($request.url.indexOf('') > -1) {
-        const bianliangHeaders = JSON.stringify($request.headers)
-        let Headers = JSON.parse(bianliangHeaders)
-        Headers = bianliangHeaders.match().toString()
-        if (Headers) $.setdata(Headers, 'bianliangHeaders')
+    if ($request.url.indexOf('orchard') > -1) {
+        const BaiduCookie = JSON.stringify($request.headers)
+        let Headers = JSON.parse(BaiduCookie)
+        Headers = BaiduCookie.match().toString()
+        if (Headers) $.setdata(Headers, 'BaiduCookie')
         $.msg($.name, "数据获取成功")
     }
 }
