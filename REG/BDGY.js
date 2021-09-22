@@ -175,7 +175,6 @@ function red_packetWater() {
         })
     })
 }
-collectWater('red_packet')
 
 function collectWater(type) {
     return new Promise((resolve) => {
