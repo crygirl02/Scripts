@@ -92,6 +92,32 @@ function BucketWater() {
     })
 }
 
+function BucketWater() {
+    return new Promise((resolve) => {
+        let url = {
+            url: 'https://orchard.baidu.com/orchard/collect/water?waterType=bottle',
+            headers: {
+                'Cookie': BaiduCookie,
+                'User-Agent': UA,
+            },
+        }
+        $.get(url, async (err, response, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.errno == 0) {
+                    $.log(`收集瓶子水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
+                }
+            }
+            catch (e) {
+                $.logErr(e, response)
+            }
+            finally {
+                resolve()
+            }
+        })
+    })
+}
+
 function Three_MealsWater() {
     return new Promise((resolve) => {
         let url = {
@@ -135,6 +161,38 @@ function red_packetWater() {
                 const result = JSON.parse(data)
                 if (result.errno == 0) {
                     $.log(`开红包获得水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
+                }
+                else{
+                    $.log(`${result.msg}\n`)
+                }
+            }
+            catch (e) {
+                $.logErr(e, response)
+            }
+            finally {
+                resolve()
+            }
+        })
+    })
+}
+collectWater('red_packet')
+
+function collectWater(type) {
+    return new Promise((resolve) => {
+        let url = {
+            url: `https://orchard.baidu.com/orchard/collect/water?waterType=${type}`,
+            headers: {
+                'Cookie': BaiduCookie,
+                'User-Agent': UA,
+            },
+        }
+        $.get(url, async (err, response, data) => {
+            try {
+                const result = JSON.parse(data)
+                if (result.errno == 0) {
+                    if(type=='red_packet'){
+                        $.log(`开红包获得水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
+                    }
                 }
                 else{
                     $.log(`${result.msg}\n`)
@@ -195,7 +253,8 @@ function Watering() {
                     count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
                     redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
                     if(redpacket_leftcount==0){
-                        await red_packetWater()
+                        //await red_packetWater()
+                        await collectWater('red_packet')
                     }
                     for (i = 1; i <= count; i++) {
                         await Watering()
