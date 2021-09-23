@@ -20,6 +20,7 @@ https://sunnytown.hyskgame.com/api/messages\SaccessToken=\w+&msgtype=system_getG
 
 const $ = new Env('富豪小镇');
 const notify = $.isNode() ? require('./sendNotify') : '';
+let fhxzToken = $.isNode ? (process.env.fhxzToken ? process.env.fhxzToken : "") : ($.getdata('fhxzToken') ? $.getdata('fhxzToken') : "")
 let fhxzTokenArr = []
 let arr = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 let lottery = '[{"type":"lottery_draw","data":{"priceType":3001}}]'
@@ -34,60 +35,15 @@ let qtjs = '[{"type":"farmland_speedUpAll","data":{"farmlandDefId":0}}]'
 let rw1 = '[{"type":"dailyQuest_receiveReward","data":{"questDefId":1002,"questType":1}}]'
 let dailyQuest = '[{"type":"dailyQuest_getQuestList","data":{"questType":1}}]'
 
-/*
-if ($.isNode()) {
-  if (process.env.fhxzToken) {
-    if (process.env.fhxzToken.indexOf('@') > -1) {
-      fhxzTokenArr = process.env.fhxzToken.split('@');
-    } else if (process.env.fhxzToken.indexOf('\n') > -1) {
-      fhxzTokenArr = process.env.fhxzToken.split('\n');
-    } else if (process.env.fhxzToken.indexOf('&') > -1) {
-      fhxzTokenArr = process.env.fhxzToken.split('&');
-    } else {
-      fhxzTokenArr = [process.env.fhxzToken]
-    }
-  }
-} else {
-  fhxzToken = ($.getdata('fhxzToken')) ? $.getdata('fhxzToken') : ""
-  if (fhxzToken) {
-    if (fhxzToken.indexOf('@') == -1) {
-      fhxzTokenArr.push(fhxzToken)
-    } else if (fhxzToken.indexOf('\n') > -1) {
-      fhxzTokenArr.fhxzToken.split('\n')
-    } else if (fhxzToken.indexOf('&') > -1) {
-      fhxzTokenArr.fhxzToken.split('&')
-    } else {
-      fhxzTokenArr = [fhxzToken]
-    }
-  }
-}
-*/
 
-if ($.isNode()) {
-  if (process.env.fhxzToken) {
-      if (process.env.fhxzToken.indexOf('@') > -1) {
-          fhxzTokenArr = process.env.fhxzToken.split('@');
-      } else if (process.env.fhxzToken.indexOf('\n') > -1) {
-          fhxzTokenArr = process.env.fhxzToken.split('\n');
-      } else if (process.env.fhxzToken.indexOf('&') > -1) {
-          fhxzTokenArr = process.env.fhxzToken.split('&');
-      } else {
-          fhxzTokenArr = [process.env.fhxzToken]
-      }
-  }
+if (fhxzToken.indexOf('@') > -1) {
+  fhxzTokenArr = fhxzToken.split('@');
+} else if (fhxzToken.indexOf('\n') > -1) {
+  fhxzTokenArr = fhxzToken.split('\n');
+} else if (fhxzToken.indexOf('&') > -1) {
+  fhxzTokenArr = fhxzToken.split('&');
 } else {
-  fhxzToken = ($.getdata('fhxzToken')) ? $.getdata('fhxzToken') : ""
-  if (fhxzToken) {
-      if (fhxzToken.indexOf('@') == -1) {
-          fhxzTokenArr.push(fhxzToken)
-      } else if (fhxzToken.indexOf('\n') > -1) {
-          fhxzTokenArr.fhxzToken.split('\n')
-      } else if (fhxzToken.indexOf('&') > -1) {
-          fhxzTokenArr.fhxzToken.split('&')
-      } else {
-          fhxzTokenArr = [fhxzToken]
-      }
-  }
+  fhxzTokenArr = [fhxzToken]
 }
 
 !(async () => {
@@ -563,28 +519,28 @@ function harvest(num) {
 //偷邻居
 function steal(num) {
   return new Promise((resolve) => {
-      let url = {
-          url: `https://sunnytown.hyskgame.com/api/messages?access${fhxzToken}msgtype=msgtype=stealingVege_attackTarget`,
-          body: `[{"type":"stealingVege_attackTarget","data":{"recordId":${num}}}]`,
+    let url = {
+      url: `https://sunnytown.hyskgame.com/api/messages?access${fhxzToken}msgtype=msgtype=stealingVege_attackTarget`,
+      body: `[{"type":"stealingVege_attackTarget","data":{"recordId":${num}}}]`,
+    }
+    $.post(url, async (err, response, data) => {
+      try {
+        if (data.match(/stealingVege_attackTarget/) == "stealingVege_attackTarget") {
+          switch (data.data.attackTarget.state) {
+            case 1: { $.log(`偷取成功`) }
+            case 2: { $.log(`偷取失败`) }
+          }
+        } else {
+          $.log(`今日已偷取过了`)
+        }
       }
-      $.post(url, async (err, response, data) => {
-          try {
-            if(data.match(/stealingVege_attackTarget/) == "stealingVege_attackTarget"){
-              switch(data.data.attackTarget.state){
-                case 1:{$.log(`偷取成功`)}
-                case 2:{$.log(`偷取失败`)}
-              }
-            }else{
-              $.log(`今日已偷取过了`)
-            }
-          }
-          catch (e) {
-              $.logErr(e, response)
-          }
-          finally {
-              resolve()
-          }
-      })
+      catch (e) {
+        $.logErr(e, response)
+      }
+      finally {
+        resolve()
+      }
+    })
   })
 }
 
