@@ -90,7 +90,7 @@ else {
           message = message + "步数换金币成功\n"
         }
         await cash()
-        (message!="")?await notify.sendNotify($.name, message):$.done()
+          (message != "") ? await notify.sendNotify($.name, message) : $.done()
       }
     }
     date = new Date()
@@ -532,16 +532,23 @@ function invite() {
 
 function cash() {
   return new Promise((resolve, reject) => {
-    $.get({
+    let url = {
       url: `http://api.gaoqingdianshi.com/api/cash/info`,
       headers: JSON.parse(dsj_header1),
-    }, (error, response, data) => {
-      //if (logs) $.log(`现金: ${data}\n`)
-      let cashresult = JSON.parse(data)
-      if (cashresult.errCode == "0") {
-        console.log(`\n【当前资产状态】\n总现金: ${cashresult.data.amount / 100}, 提现额度: ${cashresult.data.withdrawalQuota / 100}`)
+    }
+    $.get(url, (error, response, data) => {
+      try {
+        let cashresult = JSON.parse(data)
+        if (cashresult.errCode == "0") {
+          console.log(`\n【当前资产状态】\n总现金: ${cashresult.data.amount / 100}, 提现额度: ${cashresult.data.withdrawalQuota / 100}`)
+        }
       }
-      resolve()
+      catch (e) {
+        $.logErr(e, response)
+      }
+      finally {
+        resolve()
+      }
     })
   })
 }
