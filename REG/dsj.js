@@ -36,8 +36,6 @@ const TaskCode = ` {
 	"sleep": "睡觉赚钱"
 }`
 
-dsj_header = ($.getdata('dsj_header')) ? $.getdata('dsj_header') : (process.env.dsj_header ? process.env.dsj_header : "")
-
 if (dsj_header.indexOf('@') > -1) {
   dsj_headerArr = dsj_header.split('@')
 } else if (dsj_header.indexOf('&') > -1) {
@@ -61,7 +59,7 @@ else {
         $.log(`\n开始【电视家 ${$.index}】\n`)
         await TaskAll()
         await signin()
-        await Reward()
+        await Reward(41)
         await CoinInfo()
         await CoinList()
         await tasksV4()
@@ -90,7 +88,7 @@ else {
           message = message + "步数换金币成功\n"
         }
         await cash()
-          (message != "") ? await notify.sendNotify($.name, message) : $.done()
+        await notify.sendNotify($.name, message)
       }
     }
     date = new Date()
@@ -380,10 +378,10 @@ function signin() {
 }
 
 //领明天额度
-function Reward() {
+function Reward(code) {
   return new Promise((resolve, reject) => {
     let url = {
-      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=55`,
+      url: `http://api.gaoqingdianshi.com/api/sign/chooseAdditionalReward?rewardId=${code}`,
       headers: JSON.parse(dsj_header1),
     }
     $.get(url, (error, response, data) => {
