@@ -44,7 +44,7 @@ if (BaiduCookie.indexOf('@') > -1) {
                 $.log(count)
                 let sjTimes = randomNum(5000, 8000)
                 randomtime = sjTimes / 1000
-                console.log(`随机延迟${randomtime}秒`)
+                console.log(`随机延迟${randomtime}秒\n`)
                 await $.wait(sjTimes)
             } while (count > 0)
         }
@@ -75,7 +75,7 @@ function collectWater(type) {
                             $.log(`收集瓶子水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
                             break
                         case 'red_packet':
-                            $.log(`开红包获得水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
+                            $.log(`\n开红包获得水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
                             break
                         case 'three_meals':
                             $.log(`领取三餐水滴：${result.data.rewardWater}g，剩余水滴：${result.data.waterInfo.availableWaterDrop}g\n`)
@@ -114,7 +114,6 @@ function TaskWater(code) {
             try {
                 const result = JSON.parse(data)
                 if (result.errno == 0) {
-
                 }
             }
             catch (e) {
@@ -141,7 +140,7 @@ function Watering() {
             if (result.errno == 0) {
                 water = result.data.waterInfo.availableWaterDrop
                 $.log(`浇水成功，剩余水滴${water}`)
-                count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
+                count = Math.trunc(water / 10)
                 redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
                 if (redpacket_leftcount == 0) {
                     await collectWater('red_packet')
