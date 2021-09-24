@@ -9,38 +9,18 @@ const $ = new Env('百度果园测试')
 const notify = $.isNode() ? require('./sendNotify') : ''
 var message = "", count = 0, BaiduCookieArr = [], redpacket_leftcount = 0
 const UA = 'Mozilla/5.0 (iPhone; CPU iPhone OS 12_4_1 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Mobile/15E148'
+var BaiduCookie = $.isNode ? (process.env.BaiduCookie ? process.env.BaiduCookie : "") : ($.getdata('BaiduCookie') ? $.getdata('BaiduCookie') : "")
+var BaiduPlantNo = $.isNode ? (process.env.BaiduPlantNo ? process.env.BaiduPlantNo : "") : ($.getdata('BaiduPlantNo') ? $.getdata('BaiduPlantNo') : "")
 
-if ($.isNode()) {
-    if (process.env.BaiduCookie) {
-        if (process.env.BaiduCookie.indexOf('@') > -1) {
-            BaiduCookieArr = process.env.BaiduCookie.split('@');
-        } else if (process.env.BaiduCookie.indexOf('\n') > -1) {
-            BaiduCookieArr = process.env.BaiduCookie.split('\n');
-        } else if (process.env.BaiduCookie.indexOf('&') > -1) {
-            BaiduCookieArr = process.env.BaiduCookie.split('&');
-        } else {
-            BaiduCookieArr = [process.env.BaiduCookie]
-        }
-    }
-} else {
-    BaiduCookie = ($.getdata('BaiduCookie')) ? $.getdata('BaiduCookie') : ""
-    if (BaiduCookie) {
-        if (BaiduCookie.indexOf('@') == -1) {
-            BaiduCookieArr.push(BaiduCookie)
-        } else if (BaiduCookie.indexOf('\n') > -1) {
-            BaiduCookieArr.BaiduCookie.split('\n')
-        } else if (BaiduCookie.indexOf('&') > -1) {
-            BaiduCookieArr.BaiduCookie.split('&')
-        } else {
-            BaiduCookieArr = [BaiduCookie]
-        }
-    }
-}
 
-if ($.isNode() && process.env.BaiduPlantNo) {
-    BaiduPlantNo = [process.env.BaiduPlantNo]
+if (BaiduCookie.indexOf('@') > -1) {
+    BaiduCookieArr = BaiduCookie.split('@');
+} else if (BaiduCookie.indexOf('\n') > -1) {
+    BaiduCookieArr = BaiduCookie.split('\n');
+} else if (BaiduCookie.indexOf('&') > -1) {
+    BaiduCookieArr = BaiduCookie.split('&');
 } else {
-    BaiduPlantNo = ($.getdata('BaiduPlantNo')) ? $.getdata('BaiduPlantNo') : ""
+    BaiduCookieArr = [BaiduCookie]
 }
 
 !(async () => {
@@ -60,9 +40,9 @@ if ($.isNode() && process.env.BaiduPlantNo) {
             if ($.time('HH') >= 11 && $.time('HH') <= 14) await collectWater('three_meals')
             if ($.time('HH') >= 18 && $.time('HH') <= 21) await collectWater('three_meals')
             do {
-                count = await Watering()
+                count = Watering()
                 $.log(count)
-                let sjTimes = randomNum(3000, 4000)
+                let sjTimes = randomNum(5000, 8000)
                 randomtime = sjTimes / 1000
                 console.log(`随机延迟${randomtime}秒`)
                 await $.wait(sjTimes)
@@ -148,39 +128,35 @@ function TaskWater(code) {
 }
 
 function Watering() {
-    return new Promise((resolve) => {
-        $.wait(Math.random() * 200 + 5000)
-        let url = {
-            url: `https://orchard.baidu.com/orchard/plant/watering?${BaiduPlantNo}`,
-            headers: {
-                'Cookie': BaiduCookie,
-                'User-Agent': UA,
-            },
-        }
-        $.get(url, async (err, response, data) => {
-            try {
-                const result = JSON.parse(data)
-                if (result.errno == 0) {
-                    water = result.data.waterInfo.availableWaterDrop
-                    $.log(`浇水成功，剩余水滴${water}`)
-                    count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
-                    redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
-                    if (redpacket_leftcount == 0) {
-                        await collectWater('red_packet')
-                    }
-                } else {
-                    $.log(`${result.msg}\n`)
+    let url = {
+        url: `https://orchard.baidu.com/orchard/plant/watering?${BaiduPlantNo}`,
+        headers: {
+            'Cookie': BaiduCookie,
+            'User-Agent': UA,
+        },
+    }
+    $.get(url, async (err, response, data) => {
+        try {
+            const result = JSON.parse(data)
+            if (result.errno == 0) {
+                water = result.data.waterInfo.availableWaterDrop
+                $.log(`浇水成功，剩余水滴${water}`)
+                count = Math.trunc(result.data.waterInfo.availableWaterDrop / 10)
+                redpacket_leftcount = result.data.itemsList.redPacket.leftWaterTimes
+                if (redpacket_leftcount == 0) {
+                    await collectWater('red_packet')
                 }
-                $.log(count)
-                return count
+            } else {
+                $.log(`${result.msg}\n`)
             }
-            catch (e) {
-                $.logErr(e, response)
-            }
-            finally {
-                resolve()
-            }
-        })
+            $.log(count)
+            return count
+        }
+        catch (e) {
+            $.logErr(e, response)
+        }
+        finally {
+        }
     })
 }
 
