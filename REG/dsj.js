@@ -59,7 +59,7 @@ else {
         $.log(`\n开始【电视家 ${$.index}】\n`)
         await TaskAll()
         await signin()
-        await Reward(41)
+        await SignGet()
         await CoinInfo()
         await CoinList()
         await tasksV4()
@@ -371,6 +371,34 @@ function signin() {
         $.logErr(e, response)
       }
       finally {
+        resolve()
+      }
+    })
+  })
+}
+
+function SignGet() {
+  return new Promise((resolve) => {
+    let url = {
+      url: `http://api.gaoqingdianshi.com/api/v8/sign/get`,
+      headers: JSON.parse(dsj_header1),
+    }
+    $.get(url, async (err, resp, data) => {
+      try {
+        data = JSON.parse(data)
+        if (data.errCode == 0) {
+          var reward = data.data.recentDays[0]
+          reward = JSON.stringify(reward)
+          reward = reward.match(/"id":\d+,"rewardsType":\d+,"name":"[0-9]\.\d+元额度"/).toString()
+          rewardName=reward.match(/[0-9]\.\d+元额度/).toString()
+          reward = reward.match(/"id":\d+/).toString()
+          code = reward.match(/\d+/)
+          await Reward(code)
+          $.log(`明天额外奖励已选择：${rewardName}`)
+        }
+      } catch (e) {
+        $.logErr(e, resp)
+      } finally {
         resolve()
       }
     })
