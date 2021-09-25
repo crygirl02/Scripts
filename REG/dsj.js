@@ -508,14 +508,26 @@ function walk() {
 
 function getCUpcoin() {
   return new Promise((resolve, reject) => {
-    $.get({
+    var url={
       url: `http://api.gaoqingdianshi.com/api/taskext/getCoin?ext=0&code=carveUp`,
       headers: JSON.parse(dsj_header1),
-    }, (error, response, data) => {
-      //console.log(data)
-      $.log(`【瓜分百万金币】: 获得${data}金币`)
+    }
+    $.get(url, (error, response, data) => {
+      try{
+        let result = JSON.parse(data)
+        if(result.errCode == 0){
+          $.log(`【瓜分百万金币】: 获得${data}金币`)
+        }else{
+          $.log(`【瓜分百万金币】:${result.msg}`)
+        }
+      }
+      catch(e){
+        $.logErr(e,response)
+      }
+      finally{
+        resolve()
+      }
     })
-    resolve()
   })
 }
 
