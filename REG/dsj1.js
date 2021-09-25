@@ -57,14 +57,13 @@ else {
         dsj_header1 = dsj_headerArr[k]
         $.index = k + 1
         $.log(`\n开始【电视家 ${$.index}】\n`)
-        
+        await SignGet()
       }
     }
     date = new Date()
     if ($.isNode() && date.getHours() == 11 && date.getMinutes() < 10) {
       if (message.length != 0) {
         await notify.sendNotify("电视家", `${message}\n\ n`);
-        await SignGet()
       }
     }
   }
