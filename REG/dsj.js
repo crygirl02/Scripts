@@ -516,7 +516,7 @@ function getCUpcoin() {
       try{
         let result = JSON.parse(data)
         if(result.errCode == 0){
-          $.log(`【瓜分百万金币】: 获得${data}金币`)
+          $.log(`【瓜分百万金币】: 获得${data.data}金币`)
         }else{
           $.log(`【瓜分百万金币】:${result.msg}`)
         }
