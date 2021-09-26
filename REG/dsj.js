@@ -387,9 +387,9 @@ function SignGet() {
       try {
         data = JSON.parse(data)
         if (data.errCode == 0) {
-          var reward = data.data.recentDays[0]
+          var reward = (data.data.recentDays[0].isSign!=1)?data.data.recentDays[0]:data.data.recentDays[1]
           reward = JSON.stringify(reward)
-          reward = reward.match(/"id":\d+,"rewardsType":\d+,"name":"[0-9]\.\d+元额度"/).toString()
+          reward = reward.match(/\"id\":\d+\,\"rewardsType\":\d+\,\"name\":\"[0-9]\.\d+元额度\"/).toString()
           rewardName=reward.match(/[0-9]\.\d+元额度/).toString()
           reward = reward.match(/"id":\d+/).toString()
           code = reward.match(/\d+/)
