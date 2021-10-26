@@ -10,10 +10,8 @@ ck需要手动抓两个数据。 需要抓链接的wsgsig=     以及headers里�
 放到boxjs里  https://raw.githubusercontent.com/xl2101200/-/main/tom.box.json
 
 青龙COOKIE  https://raw.githubusercontent.com/xl2101200/-/main/ddgyCOOKIE.js
-*/
 
-/*
-cron "20 21 * * *" ddgy.js, tag:滴滴果园
+cron "0 0 * * *" ddgy.js, tag:滴滴果园
  */
 
 
