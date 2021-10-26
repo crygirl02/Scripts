@@ -1,3 +1,7 @@
+//
+// cron "0 0 */3 * *" zq_double.js, tag:中青看点阅读翻倍
+//
+
 const $ = new Env("中青看点阅读翻倍");
 const notify = $.isNode() ? require('./sendNotify') : '';
 message = ""
